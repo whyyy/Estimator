@@ -13,6 +13,7 @@
     
     <Grid ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="True">
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.2*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
@@ -21,19 +22,21 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="8*"/>
             <RowDefinition Height="10"/>
         </Grid.RowDefinitions>
         <TextBlock Grid.Column="0" Grid.Row="1"/>
-        <Button Grid.Column="1" Content="Testrail"/>
-        <ComboBox Grid.Row="2" Grid.Column="0" ItemsSource="{Binding GetStatuses.Statuses}">
+        <Button Grid.Column="0" Grid.Row="1" Content="Testrail"/>
+        <Button Grid.Column="0" Grid.Row="2" Content="Redmine"/>
+        <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding GetStatuses.Statuses}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding StatusName}"/>
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <ScrollViewer Grid.Row="3" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible">
+        <ScrollViewer Grid.Row="3" Grid.Column="1" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible">
             <ListView ItemsSource="{Binding GetIssues.Issues}">
                 <ListView.View>
                         <GridView>
