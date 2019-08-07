@@ -240,14 +240,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Model\ObservableObject.cs" />
+    <Compile Include="Helpers\Commander.cs" />
+    <Compile Include="Helpers\ListToObservableCollection.cs" />
     <Compile Include="ViewModel\EstimatorViewModel.cs" />
-    <Compile Include="ViewModel\RelayCommand.cs" />
     <Compile Include="View\HomeWindow.xaml.cs">
       <DependentUpon>HomeWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\TestrailWindow.xaml.cs">
-      <DependentUpon>TestrailWindow.xaml</DependentUpon>
+    <Compile Include="View\RedminePage.xaml.cs">
+      <DependentUpon>RedminePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TestrailPage.xaml.cs">
+      <DependentUpon>TestrailPage.xaml</DependentUpon>
     </Compile>
     <Page Include="View\HomeWindow.xaml">
       <SubType>Designer</SubType>
@@ -271,11 +274,15 @@
     <Compile Include="ViewModel\IssueWindowViewModel.cs" />
     <Compile Include="ViewModel\RedmineConnection.cs" />
     <Compile Include="ViewModel\RedmineConnectionDetails.cs" />
-    <Compile Include="View\MainWindow.cs">
+    <Compile Include="View\IssueWindow.xaml.cs">
       <DependentUpon>IssueWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="View\TestrailWindow.xaml">
+    <Page Include="View\RedminePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TestrailPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

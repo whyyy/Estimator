@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:local="clr-namespace:Estimator"
         xmlns:ViewModel="clr-namespace:Estimator.ViewModel" x:Class="Estimator.MainWindow"
         mc:Ignorable="d"
@@ -28,24 +29,30 @@
         </Grid.RowDefinitions>
         <TextBlock Grid.Column="0" Grid.Row="1"/>
         <Button Grid.Column="0" Grid.Row="1" Content="Testrail"/>
-        <Button Grid.Column="0" Grid.Row="2" Content="Redmine"/>
-        <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding GetStatuses.Statuses}">
+        <Button Grid.Column="0" Grid.Row="2" Content="Redmine" Command="{Binding FilterByStatusChosenCommand}"/>
+        <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding GetStatuses.Statuses}" SelectedItem="{Binding SelectedStatus}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding FilterByStatusChosenCommand}"></i:InvokeCommandAction>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
             <ComboBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding StatusName}"/>
+                    <TextBlock Text="{Binding StatusName, Mode=OneWay}"/>
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
         <ScrollViewer Grid.Row="3" Grid.Column="1" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible">
-            <ListView ItemsSource="{Binding GetIssues.Issues}">
+            <ListView ItemsSource="{Binding GetIssues.Issues}" SelectedItem="{Binding SelectedStatus}">
                 <ListView.View>
-                        <GridView>
-                            <GridViewColumn DisplayMemberBinding="{Binding Id}" Header="Id"/>
-                            <GridViewColumn DisplayMemberBinding="{Binding Subject}" Header="Subject"/>
-                            <GridViewColumn DisplayMemberBinding="{Binding StatusName}" Header="Status"/>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-            </ScrollViewer>
+                    <GridView>
+                        <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" />
+                        <GridViewColumn Header="Subject" DisplayMemberBinding="{Binding Subject}" />
+                        <GridViewColumn Header="Status" DisplayMemberBinding="{Binding StatusName}" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </ScrollViewer>
+
     </Grid>
 </Window>

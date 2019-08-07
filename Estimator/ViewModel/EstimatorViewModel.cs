@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,16 +12,10 @@ namespace Estimator.ViewModel
     class EstimatorViewModel : ObservableObject
     {
         private ICommand getIssues;
-        public ICommand GetIssues
+        
+        public EstimatorViewModel()
         {
-            get
-            {
-                if (getIssues == null)
-                {
-                    getIssues = new RelayCommand(p => new GetIssues());
-                }
-                return getIssues;
-            }
+            
         }
     }
 }

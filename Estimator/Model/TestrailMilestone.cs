@@ -1,18 +1,79 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Estimator.Model
 {
-    class TestrailMilestone
+    class TestrailMilestone : INotifyPropertyChanged
     {
-        public string MilestoneName { get; set; }
-        public ulong MilestoneId { get; set; }
-        public bool? IsStarted { get; set; }
-        public DateTime? DueDate { get; set; }
-        public bool? IsCompleted { get; set; }
+        private string milestoneName;
+        public string MilestoneName
+        {
+            get
+            {
+                return milestoneName;
+            }
+            set
+            {
+                milestoneName = value;
+                RaisePropertyChanged("MilestoneName");
+            }
+        }
+        private ulong milestoneId;
+        public ulong MilestoneId
+        {
+            get
+            {
+                return milestoneId;
+            }
+            set
+            {
+                milestoneId = value;
+                RaisePropertyChanged("MilestoneId");
+            }
+        }
+        private bool? isStarted;
+        public bool? IsStarted
+        {
+            get
+            {
+                return isStarted;
+            }
+            set
+            {
+                isStarted = value;
+                RaisePropertyChanged("IsStarted");
+            }
+        }
+        private DateTime? dueDate;
+        public DateTime? DueDate
+        {
+            get
+            {
+                return dueDate;
+            }
+            set
+            {
+                dueDate = value;
+                RaisePropertyChanged("DueDate");
+            }
+        }
+        private bool? isCompleted;
+        public bool? IsCompleted
+        {
+            get
+            {
+                return isCompleted;
+            }
+            set
+            {
+                isCompleted = value;
+                RaisePropertyChanged("IsCompleted");
+            }
+        }
 
         public TestrailMilestone()
         {
@@ -26,6 +87,12 @@ namespace Estimator.Model
             IsStarted = isStarted;
             DueDate = dueDate;
             IsCompleted = isCompleted;
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void RaisePropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

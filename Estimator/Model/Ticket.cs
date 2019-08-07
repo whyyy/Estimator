@@ -1,8 +1,9 @@
 ﻿using System;
+using System.ComponentModel;
 
 namespace Estimator.Model
 {
-    public class Ticket
+    public class Ticket : INotifyPropertyChanged
     {
         public Ticket(string statusName, int statusId)
         {
@@ -23,16 +24,117 @@ namespace Estimator.Model
             StatusName = statusName;
 
         }
+        private int id;
+        public int Id
+        {
+            get
+            {
+                return id;
+            }
+            set
+            {
+                id = value;
+                RaisePropertyChanged("Id");
+            }
+        }
+        private string subject;
+        public string Subject
+        {
+            get
+            {
+                return subject;
+            }
+            set
+            {
+                subject = value;
+                RaisePropertyChanged("Subject");
+            }
+        }
+        private DateTime? startDate;
+        public DateTime? StartDate
+        {
+            get
+            {
+                return startDate;
+            }
+            set
+            {
+                startDate = value;
+                RaisePropertyChanged("StartDate");
+            }
+        }
+        private DateTime? endDate;
+        public DateTime? EndDate
+        {
+            get
+            {
+                return endDate;
+            }
+            set
+            {
+                endDate = value;
+                RaisePropertyChanged("EndDate");
+            }
+        }
+        private DateTime? uatStartDate;
+        public DateTime? UatStartDate
+        {
+            get
+            {
+                return uatStartDate;
+            }
+            set
+            {
+                uatStartDate = value;
+                RaisePropertyChanged("UatStartDate");
+            }
+        }
+        private DateTime? uatEndDate;
+        public DateTime? UatEndDate
+        {
+            get
+            {
+                return uatEndDate;
+            }
+            set
+            {
+                uatEndDate = value;
+                RaisePropertyChanged("UatEndDate");
+            }
+        }
+        private int statusId;
+        public int StatusId
+        {
+            get
+            {
+                return statusId;
+            }
+            set
+            {
+                statusId = value;
+                RaisePropertyChanged("StatusId");
+            }
+        }
+        private string statusName;
+        public string StatusName
+        {
+            get
+            {
+                return statusName;
+            }
+            set
+            {
+                statusName = value;
+                RaisePropertyChanged("StatusName");
+            }
+        }
 
-        public int Id { get; }
-        public String Subject { get; private set; }
-        public DateTime? StartDate { get; private set; }
-        public DateTime? EndDate { get; private set; }
-        public DateTime? UatStartDate { get; private set; }
-        public DateTime? UatEndDate { get; private set; }
-        public int StatusId { get; private set; }
-        public string StatusName { get; set; }
-
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void RaisePropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }
 
     }
 }

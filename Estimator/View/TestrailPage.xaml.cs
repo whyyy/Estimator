@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Estimator.View
 {
     /// <summary>
-    /// Interaction logic for TestrailWindow.xaml
+    /// Interaction logic for TestrailPage.xaml
     /// </summary>
-    public partial class TestrailWindow : Window
+    public partial class TestrailPage : Page
     {
-        public TestrailWindow()
+        public TestrailPage()
         {
             InitializeComponent();
         }
