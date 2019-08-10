@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using Redmine.Net.Api;
+using Redmine.Net.Api.Types;
 
 namespace Estimator.Model
 {
@@ -12,7 +15,7 @@ namespace Estimator.Model
         }
         public Ticket(int id, string subject, DateTime? startDate,
             DateTime? endDate, DateTime? uatStartDate, DateTime? uatEndDate,
-            int status, string statusName)
+            int status, string statusName, IList<IssueCustomField> customFields)
         {
             Id = id;
             Subject = subject;
@@ -22,6 +25,7 @@ namespace Estimator.Model
             UatEndDate = uatEndDate;
             StatusId = status;
             StatusName = statusName;
+            CustomFields = customFields;
 
         }
         private int id;
@@ -128,6 +132,19 @@ namespace Estimator.Model
                 RaisePropertyChanged("StatusName");
             }
         }
+        private IList<IssueCustomField> customFields;
+        public IList<IssueCustomField> CustomFields
+        {
+            get
+            {
+                return customFields;
+            }
+            set
+            {
+                customFields = value;
+                RaisePropertyChanged("CustomFields");
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void RaisePropertyChanged(string propertyName)
@@ -135,6 +152,7 @@ namespace Estimator.Model
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
+
 
     }
 }

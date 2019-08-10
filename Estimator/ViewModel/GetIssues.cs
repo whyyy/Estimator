@@ -13,8 +13,8 @@ namespace Estimator.ViewModel
     public class GetIssues : INotifyPropertyChanged
     {
         RedmineManager Connection = new RedmineManager("http://127.0.0.1/redmine/", "e698087c45046c4e5b45e7b666fc3aa51d94f37f");
-        private ObservableCollection<Ticket> issues = new ObservableCollection<Ticket>();
-        public ObservableCollection<Ticket> Issues 
+        private List<Ticket> issues = new List<Ticket>();
+        public List<Ticket> Issues 
         {
             get
             {
@@ -34,7 +34,7 @@ namespace Estimator.ViewModel
 
             foreach (var issue in Connection.GetObjects<Issue>())
             {
-                issues.Add(new Ticket(issue.Id, issue.Subject, issue.StartDate, issue.StartDate, issue.StartDate, issue.StartDate, issue.Status.Id, issue.Status.Name));
+                issues.Add(new Ticket(issue.Id, issue.Subject, issue.StartDate, issue.StartDate, issue.StartDate, issue.StartDate, issue.Status.Id, issue.Status.Name, issue.CustomFields));
             }
             issues.ToObservableCollection();
         }
@@ -43,7 +43,7 @@ namespace Estimator.ViewModel
             //Parameters.Add(key, value);
             foreach (var issue in Connection.GetObjects<Issue>(parameters))
             {
-                Issues.Add(new Ticket(issue.Id, issue.Subject, issue.StartDate, issue.StartDate, issue.StartDate, issue.StartDate, issue.Status.Id, issue.Status.Name));
+                Issues.Add(new Ticket(issue.Id, issue.Subject, issue.StartDate, issue.StartDate, issue.StartDate, issue.StartDate, issue.Status.Id, issue.Status.Name, issue.CustomFields));
             }
             Issues.ToObservableCollection();
         }

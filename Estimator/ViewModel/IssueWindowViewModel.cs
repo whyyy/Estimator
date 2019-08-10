@@ -4,12 +4,17 @@ using System.ComponentModel;
 using System.Configuration;
 using Estimator.Helpers;
 using System.Windows.Input;
+using System;
+using System.Windows;
+using System.Linq;
 
 namespace Estimator.ViewModel
 {
     class IssueWindowViewModel : INotifyPropertyChanged
     {
         public ICommand FilterByStatusChosenCommand { get; set; }
+        public ICommand CheckIsStartedCommand { get; set; }
+        public ICommand DisplayTicketDetailsCommand { get; set; }
 
         private GetStatuses getStatuses;
         public GetStatuses GetStatuses
@@ -54,6 +59,8 @@ namespace Estimator.ViewModel
         public NameValueCollection Parameters { get; set; } = new NameValueCollection();
         public string ProjectId { get; set; } = ConfigurationSettings.AppSettings.Get("projectTasks");
         public string TrackerNp { get; set; } = ConfigurationSettings.AppSettings.Get("trackerNP");
+        public string StatusEstimated { get; set; } = ConfigurationSettings.AppSettings.Get("statusEstimated");
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void RaisePropertyChanged(string propertyName)
@@ -75,6 +82,32 @@ namespace Estimator.ViewModel
                 RaisePropertyChanged("SelectedStatus");
             }
         }
+        private Ticket selectedTicket;
+        public Ticket SelectedTicket
+        {
+            get
+            {
+                return selectedTicket;
+            }
+            set
+            {
+                selectedTicket = value;
+                RaisePropertyChanged("SelectedTicket");
+            }
+        }
+        private Ticket startDate;
+        public Ticket StartDate
+        {
+            get
+            {
+                return startDate;
+            }
+            set
+            {
+                startDate = value;
+                RaisePropertyChanged("StartDate");
+            }
+        }
 
         public IssueWindowViewModel()
         {
@@ -82,11 +115,12 @@ namespace Estimator.ViewModel
             GetIssues = new GetIssues();
             GetTrackers = new GetTrackers();
             FilterByStatusChosenCommand = new Commander(FilterByStatusChosen , CanFilterByStatusChosen);
+            CheckIsStartedCommand = new Commander(CheckIsStarted, CanCheckIsStarted);
+            DisplayTicketDetailsCommand = new Commander(DisplayTicketDetails, CanDisplayTicketDetails);
         }
 
         private void FilterByStatusChosen(object obj)
         {
-            GetIssues.Issues.Clear();
             Parameters.Clear();
             Parameters.Add("tracker_id", TrackerNp);
             Parameters.Add("status_id", SelectedStatus.StatusId.ToString());
@@ -96,6 +130,34 @@ namespace Estimator.ViewModel
         private bool CanFilterByStatusChosen(object obj)
         {
             if (SelectedStatus != null)
+                return true;
+            return false;
+        }
+
+        private void DisplayTicketDetails(object obj)
+        {
+            Parameters.Add("ticket_id", SelectedTicket.Id.ToString());
+            GetIssues = new GetIssues(Parameters);
+        }
+
+        private bool CanDisplayTicketDetails(object obj)
+        {
+            if (SelectedTicket != null)
+                return true;
+            return false;
+        }
+
+
+        private void CheckIsStarted(object obj)
+        {
+
+            GetIssues.Issues.Select(x => { x.StartDate = DateTime.Today; return x; }).ToList();
+
+        }
+
+        private bool CanCheckIsStarted(object obj)
+        {
+            if (SelectedStatus.StatusId == 7)
                 return true;
             return false;
         }
