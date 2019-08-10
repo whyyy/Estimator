@@ -11,9 +11,7 @@
     <Window.DataContext>
         <ViewModel:IssueWindowViewModel/>
     </Window.DataContext>
-
-
-    <Grid ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="True">
+    <Grid >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.2*"/>
             <ColumnDefinition Width="*"/>
@@ -23,11 +21,12 @@
             <RowDefinition Height="10"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
-            <RowDefinition />
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="10"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="Status"  Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <ComboBox Margin="5,0,5,0" Grid.Row="2" Grid.Column="1" ItemsSource="{Binding GetStatuses.Statuses}" SelectedItem="{Binding SelectedStatus}">
+        <TextBlock Text="Status"  Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <ComboBox ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="5,0,5,0" Grid.Row="1" Grid.Column="1" ItemsSource="{Binding GetStatuses.Statuses}" SelectedItem="{Binding SelectedStatus}">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
                     <i:InvokeCommandAction Command="{Binding FilterByStatusChosenCommand}"></i:InvokeCommandAction>
@@ -40,11 +39,11 @@
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <Grid Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Top">
-            <ScrollViewer Margin="5" Grid.Row="2" Grid.Column="2" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible">
-                <ListView ItemsSource="{Binding GetIssues.Issues}" SelectionMode="Single" SelectedItem="{Binding SelectedTicket}">
+        <Grid Grid.Column="1" Grid.RowSpan="5" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <ScrollViewer Margin="5" Grid.Row="2" Grid.Column="2" >
+                <ListView  ItemsSource="{Binding GetIssues.Issues}" SelectionMode="Single" SelectedItem="{Binding SelectedTicket}">
                     <ListView.View>
-                        <GridView>
+                        <GridView ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible">
                             <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" />
                             <GridViewColumn Header="Subject" DisplayMemberBinding="{Binding Subject}" />
                             <GridViewColumn Header="Status" DisplayMemberBinding="{Binding StatusName}" />
@@ -53,15 +52,16 @@
                 </ListView>
             </ScrollViewer>
         </Grid>
-        <Grid Margin="5" Grid.Column="3" Grid.Row="3" VerticalAlignment="Top" Background="#FFE4E4E4">
+        <Grid Margin="5" Grid.Column="3" Grid.Row="2" VerticalAlignment="Top" Background="#FFE4E4E4">
             
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="5"/>
                 <ColumnDefinition/>
-                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
@@ -70,30 +70,35 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Border Grid.ColumnSpan="3" Grid.RowSpan="56" BorderBrush="DarkSlateGray" BorderThickness="1,2,1,2"/>
-            <TextBlock Grid.Row="0" Grid.Column="1" Text="Project Name" FontWeight="Bold" />
-            <TextBlock Grid.Row="1" Grid.Column="1" Text="Start Date" FontWeight="Bold" />
-            <TextBlock Grid.Row="2" Grid.Column="1" Text="End Date" FontWeight="Bold" />
-            <TextBlock Grid.Row="3" Grid.Column="1" Text="Status" FontWeight="Bold" />
-            <TextBlock Grid.Row="4" Grid.Column="1" Text="UAT Start Date" FontWeight="Bold" />
-            <TextBlock Grid.Row="5" Grid.Column="1" Text="UAT End Date" FontWeight="Bold" />
-            <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding SelectedTicket.Subject}" />
-            <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding SelectedTicket.StartDate}" />
-            <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding SelectedTicket.EndDate}" />
-            <TextBlock Grid.Row="3" Grid.Column="2" Text="{Binding SelectedTicket.StatusName}" />
-            <TextBlock Grid.Row="4" Grid.Column="2" Text="{Binding SelectedTicket.UatStartDate}" />
-            <TextBlock Grid.Row="5" Grid.Column="2" Text="{Binding SelectedTicket.UatEndDate}" />
-            <ListView Grid.Row="7" Grid.ColumnSpan="3" ItemsSource="{Binding SelectedTicket.CustomFields}">
-                <ListView.ItemTemplate>
+            <TextBlock FontSize="14" Grid.Row="0" Grid.Column="1" Text="Project Name" FontWeight="Bold" />
+            <TextBlock FontSize="14" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding SelectedTicket.Subject}" TextWrapping="Wrap" />
+            <Border BorderThickness="1,1,1,1" Grid.Column="1" Grid.Row="2" BorderBrush="DarkSlateGray"/>
+            <StackPanel Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5">  
+                <TextBlock Grid.Row="2" Grid.Column="1" Text="Start Date" FontWeight="Bold" />
+                <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding SelectedTicket.StartDate, StringFormat=d}" />
+                <TextBlock Grid.Row="3" Grid.Column="1" Text="End Date" FontWeight="Bold" />
+                <TextBlock Grid.Row="3" Grid.Column="2" Text="{Binding SelectedTicket.EndDate, StringFormat=d}" />
+                <TextBlock Grid.Row="4" Grid.Column="1" Text="Status" FontWeight="Bold" />
+                <TextBlock Grid.Row="4" Grid.Column="2" Text="{Binding SelectedTicket.StatusName}" />
+                <TextBlock Grid.Row="4" Grid.Column="1" Text="UAT Start Date" FontWeight="Bold" />
+                <TextBlock Grid.Row="4" Grid.Column="2" Text="{Binding SelectedTicket.UatStartDate, StringFormat=d}" />
+                <TextBlock Grid.Row="6" Grid.Column="1" Text="UAT End Date" FontWeight="Bold" />
+                <TextBlock Grid.Row="6" Grid.Column="2" Text="{Binding SelectedTicket.UatEndDate, StringFormat=d}" />
+            </StackPanel>
+            <ListBox Grid.Row="2" Grid.Column="2" ItemsSource="{Binding SelectedTicket.CustomFields}">
+                <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel>
+                        <StackPanel Margin="4" >
                             <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
                             <TextBlock Text="{Binding Values/Info}"/>
                         </StackPanel>
                     </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </Grid>
+
+
+        
 
     </Grid>
 </Window>
