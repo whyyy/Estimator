@@ -248,19 +248,6 @@
     <Compile Include="Helpers\Commander.cs" />
     <Compile Include="Helpers\ListToObservableCollection.cs" />
     <Compile Include="Model\TestrailTestRun.cs" />
-    <Compile Include="View\HomeWindow.xaml.cs">
-      <DependentUpon>HomeWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\RedminePage.xaml.cs">
-      <DependentUpon>RedminePage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\TestrailPage.xaml.cs">
-      <DependentUpon>TestrailPage.xaml</DependentUpon>
-    </Compile>
-    <Page Include="View\HomeWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="View\IssueWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -270,12 +257,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Model\RedmineTracker.cs" />
-    <Compile Include="Model\TestrailMilestone.cs" />
     <Compile Include="Model\Ticket.cs" />
     <Compile Include="ViewModel\GetIssues.cs" />
     <Compile Include="ViewModel\GetStatuses.cs" />
     <Compile Include="ViewModel\GetTestrailTestRuns.cs" />
-    <Compile Include="ViewModel\GetTrackers.cs" />
     <Compile Include="ViewModel\IssueWindowViewModel.cs" />
     <Compile Include="ViewModel\RedmineConnection.cs" />
     <Compile Include="ViewModel\RedmineConnectionDetails.cs" />
@@ -283,14 +268,6 @@
       <DependentUpon>IssueWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="View\RedminePage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\TestrailPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

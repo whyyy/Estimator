@@ -43,19 +43,7 @@ namespace Estimator.ViewModel
                 RaisePropertyChanged("GetIssues");
             }
         }
-        private GetTrackers getTrackers;
-        public GetTrackers GetTrackers
-        {
-            get
-            {
-                return getTrackers;
-            }
-            set
-            {
-                getTrackers = value;
-                RaisePropertyChanged("GetTrackers");
-            }
-        }
+
 
         private GetTestrailTestRuns getTestrailTestRuns;
         public GetTestrailTestRuns GetTestrailTestRuns
@@ -121,34 +109,6 @@ namespace Estimator.ViewModel
             {
                 startDate = value;
                 RaisePropertyChanged("StartDate");
-            }
-        }
-
-        private TestrailMilestone testtrailMilestone;
-        public TestrailMilestone TestrailMilestone
-        {
-            get
-            {
-                return testtrailMilestone;
-            }
-            set
-            {
-                testtrailMilestone = value;
-                RaisePropertyChanged("TestrailMilestone");
-            }
-        }
-
-        private string milestoneName;
-        public string MilestoneName
-        {
-            get
-            {
-                return milestoneName;
-            }
-            set
-            {
-                milestoneName = value;
-                RaisePropertyChanged("MilestoneName");
             }
         }
 
