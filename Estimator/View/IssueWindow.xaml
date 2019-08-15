@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:Estimator"
         xmlns:ViewModel="clr-namespace:Estimator.ViewModel" x:Class="Estimator.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="680" Width="1200" ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="True">
+        Title="MainWindow" Height="600" Width="1100" ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="True">
     <Window.DataContext>
         <ViewModel:IssueWindowViewModel/>
     </Window.DataContext>
@@ -78,7 +78,7 @@
             <TextBlock FontSize="14" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding SelectedTicket.Subject}" TextWrapping="Wrap" />
             <Border BorderThickness="1,1,1,1" Grid.Column="1" Grid.Row="2" BorderBrush="DarkSlateGray"/>
             <StackPanel Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5">
-                <TextBlock Grid.Row="2" Grid.Column="1" Text="Start Date" FontWeight="Bold" />
+                <TextBlock Grid.Row="2" Grid.Column="1" Text="Start Date" FontWeight="Bold" HorizontalAlignment="Left" />
                 <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding SelectedTicket.StartDate, StringFormat=d}" />
                 <TextBlock Grid.Row="3" Grid.Column="1" Text="End Date" FontWeight="Bold" />
                 <TextBlock Grid.Row="3" Grid.Column="2" Text="{Binding SelectedTicket.EndDate, StringFormat=d}" />
@@ -89,10 +89,10 @@
                 <TextBlock Grid.Row="6" Grid.Column="1" Text="UAT End Date" FontWeight="Bold" />
                 <TextBlock Grid.Row="6" Grid.Column="2" Text="{Binding SelectedTicket.UatEndDate, StringFormat=d}" />
             </StackPanel>
-            <ListBox Grid.Row="2" Grid.Column="2" ItemsSource="{Binding SelectedTicket.CustomFields}">
+            <ListBox Background="#FFE4E4E4"  Grid.Row="2" Grid.Column="2" ItemsSource="{Binding SelectedTicket.CustomFields}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Margin="4" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible" >
+                        <StackPanel  Margin="4" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible" >
                             <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
                             <TextBlock Text="{Binding Values/Info}"/>
                             <TextBlock Text="{Binding Values/Info}" DataContext="{Binding Values/Info}"/>
@@ -102,8 +102,8 @@
             </ListBox>
             <Button Grid.Column="2" Grid.Row="3" Content="Testrail" Command="{Binding Path=DisplayTestrailInfoCommand}"/>
         </Grid>
-        
-        <Grid Margin="5" Grid.Column="2" Grid.Row="5"  Background="#FFE4E4E4">
+
+        <Grid ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="5" Grid.Column="2" Grid.Row="5"  Background="#FFE4E4E4" VerticalAlignment="Center">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="5"/>
                 <ColumnDefinition/>
@@ -115,14 +115,20 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="2" Grid.Column="2"/>
-            <ListBox Grid.Row="3" Grid.Column="2" ItemsSource="{Binding GetTestrailTestRuns.SelectedTestRuns}" >
+            <ListBox Grid.Row="3" Grid.Column="2" ItemsSource="{Binding GetTestrailTestRuns.SelectedTestRuns}" SelectedItem="{Binding SelectedTicket}" HorizontalAlignment="Left" VerticalAlignment="Center" >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Margin="4" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible" >
+                        <StackPanel Margin="4" Background="#FFDADADA" HorizontalAlignment="Center">
                             <TextBlock Text=" Test run:" FontWeight="Bold"/>
-                            <TextBlock Text="{Binding Name}"/>
-                            <TextBlock Text="Description" FontWeight="Bold"/>
-                            <TextBlock Text="{Binding Description}" />
+                            <TextBlock Text="{Binding Name}" HorizontalAlignment="Center"/>
+                            <TextBlock Text="Description" FontWeight="Bold" HorizontalAlignment="Left"/>
+                            <TextBlock Text="{Binding Description}" HorizontalAlignment="Center" />
+                            <TextBlock Text="Passed test cases:" FontWeight="Bold" HorizontalAlignment="Left"/>
+                            <TextBlock Text="{Binding PassedCounter}" HorizontalAlignment="Center" />
+                            <TextBlock Text="Failed test cases:" FontWeight="Bold" HorizontalAlignment="Left"/>
+                            <TextBlock Text="{Binding FailedNumber}" HorizontalAlignment="Center" />
+                            <TextBlock Text="Warning test cases:" FontWeight="Bold" HorizontalAlignment="Left"/>
+                            <TextBlock Text="{Binding WarningCasesNumber}" HorizontalAlignment="Center"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
