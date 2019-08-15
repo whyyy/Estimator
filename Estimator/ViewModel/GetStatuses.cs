@@ -2,7 +2,6 @@
 using Estimator.Model;
 using Redmine.Net.Api;
 using Redmine.Net.Api.Types;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -26,7 +25,7 @@ namespace Estimator.ViewModel
                 RaisePropertyChanged("Statuses");
             }
         }
-        
+
         NameValueCollection Parameters = new NameValueCollection();
         public GetStatuses(string key, string value)
         {

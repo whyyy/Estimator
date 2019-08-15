@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Estimator.Helpers
@@ -16,7 +12,7 @@ namespace Estimator.Helpers
             this.execute = execute;
             this.canExecute = canExecute;
         }
-        public bool CanExecute (object parameter)
+        public bool CanExecute(object parameter)
         {
             bool response = canExecute == null ? true : canExecute(parameter);
             return response;

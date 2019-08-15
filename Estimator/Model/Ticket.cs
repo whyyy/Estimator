@@ -1,8 +1,7 @@
-﻿using System;
+﻿using Redmine.Net.Api.Types;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using Redmine.Net.Api;
-using Redmine.Net.Api.Types;
 
 namespace Estimator.Model
 {

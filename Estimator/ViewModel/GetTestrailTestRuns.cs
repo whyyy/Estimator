@@ -1,12 +1,7 @@
 ﻿using Estimator.Helpers;
 using Estimator.Model;
-using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TestRail;
 
 
@@ -44,25 +39,25 @@ namespace Estimator.ViewModel
         }
         public GetTestrailTestRuns()
         {
-            foreach(var testRun in Connection.GetRuns(1))
+            foreach (var testRun in Connection.GetRuns(1))
             {
-                testRuns.Add(new TestrailTestRun(testRun.Name, testRun.ID, testRun.PassedCount, testRun.Description, testRun.MilestoneID));
+                testRuns.Add(new TestrailTestRun(testRun.Name, testRun.ID, testRun.PassedCount, testRun.Description, testRun.MilestoneID, testRun.UntestedCount, testRun.FailedCount, testRun.CustomStatus1Count));
             }
         }
         public GetTestrailTestRuns(ulong? milestoneId)
         {
             foreach (var testRun in Connection.GetRuns(1))
             {
-                testRuns.Add(new TestrailTestRun(testRun.Name, testRun.ID, testRun.PassedCount, testRun.Description, testRun.MilestoneID));
+                testRuns.Add(new TestrailTestRun(testRun.Name, testRun.ID, testRun.PassedCount, testRun.Description, testRun.MilestoneID, testRun.UntestedCount, testRun.FailedCount, testRun.CustomStatus1Count));
             }
             foreach (var testRun in testRuns)
             {
                 if (testRun.MilestoneId.Equals(milestoneId))
                 {
-                    selectedTestRuns.Add(new TestrailTestRun(testRun.Name, testRun.Id, testRun.PassedCounter, testRun.Description, testRun.MilestoneId));
+                    selectedTestRuns.Add(new TestrailTestRun(testRun.Name, testRun.Id, testRun.PassedCounter, testRun.Description, testRun.MilestoneId, testRun.UntestedNumber, testRun.FailedNumber, testRun.WarningCasesNumber));
                 }
             }
-            selectedTestRuns.ToObservableCollection();             
+            selectedTestRuns.ToObservableCollection();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

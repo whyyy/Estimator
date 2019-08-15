@@ -1,12 +1,11 @@
-﻿using Estimator.Model;
+﻿using Estimator.Helpers;
+using Estimator.Model;
+using System;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Configuration;
-using Estimator.Helpers;
-using System.Windows.Input;
-using System;
-using System.Windows;
 using System.Linq;
+using System.Windows.Input;
 
 namespace Estimator.ViewModel
 {
@@ -115,7 +114,7 @@ namespace Estimator.ViewModel
         public IssueWindowViewModel()
         {
             GetStatuses = new GetStatuses("tracker_id", TrackerNp);
-            FilterByStatusChosenCommand = new Commander(FilterByStatusChosen , CanFilterByStatusChosen);
+            FilterByStatusChosenCommand = new Commander(FilterByStatusChosen, CanFilterByStatusChosen);
             CheckIsStartedCommand = new Commander(CheckIsStarted, CanCheckIsStarted);
             DisplayTicketDetailsCommand = new Commander(DisplayTicketDetails, CanDisplayTicketDetails);
             DisplayTestrailInfoCommand = new Commander(DisplayTestrailInfo, CanDisplayTestrailInfo);
@@ -126,7 +125,7 @@ namespace Estimator.ViewModel
             Parameters.Clear();
             Parameters.Add("tracker_id", TrackerNp);
             Parameters.Add("status_id", SelectedStatus.StatusId.ToString());
-            GetIssues = new GetIssues(Parameters);    
+            GetIssues = new GetIssues(Parameters);
         }
 
         private bool CanFilterByStatusChosen(object obj)
@@ -140,7 +139,7 @@ namespace Estimator.ViewModel
             GetTestrailTestRuns = new GetTestrailTestRuns(Convert.ToUInt64(SelectedTicket.TestrailId));
         }
 
-        
+
         private bool CanDisplayTestrailInfo(object obj)
         {
             if (SelectedTicket != null)
