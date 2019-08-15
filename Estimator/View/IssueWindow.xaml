@@ -23,30 +23,34 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="10"/>
         </Grid.RowDefinitions>
         <TextBlock Text="Status"  Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <ComboBox ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="5,0,5,0" Grid.Row="1" Grid.Column="1" ItemsSource="{Binding GetStatuses.Statuses}" SelectedItem="{Binding SelectedStatus}">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
-                    <i:InvokeCommandAction Command="{Binding FilterByStatusChosenCommand}"></i:InvokeCommandAction>
-                    <i:InvokeCommandAction Command="{Binding CheckIsStarted}"></i:InvokeCommandAction>
+                    <i:InvokeCommandAction Command="{Binding FilterByStatusChosenCommand}">
+                    </i:InvokeCommandAction>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
             <ComboBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding StatusName, Mode=OneWay}"/>
+                    <TextBlock Text="{Binding StatusName}"/>
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
         <Grid Grid.Column="1" Grid.RowSpan="5" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top">
             <ScrollViewer Margin="5" Grid.Row="2" Grid.Column="2" >
-                <ListView  ItemsSource="{Binding GetIssues.Issues}" SelectionMode="Single" SelectedItem="{Binding SelectedTicket}">
+                <ListView  ItemsSource="{Binding GetIssues.Issues}" SelectedItem="{Binding SelectedTicket}" SelectionMode="Single">
                     <ListView.View>
                         <GridView ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible">
                             <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" />
                             <GridViewColumn Header="Subject" DisplayMemberBinding="{Binding Subject}" />
                             <GridViewColumn Header="Status" DisplayMemberBinding="{Binding StatusName}" />
+                            <GridViewColumn Header="TestrailID" DisplayMemberBinding="{Binding TestrailId}" />
                         </GridView>
                     </ListView.View>
                 </ListView>
@@ -73,7 +77,7 @@
             <TextBlock FontSize="14" Grid.Row="0" Grid.Column="1" Text="Project Name" FontWeight="Bold" />
             <TextBlock FontSize="14" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding SelectedTicket.Subject}" TextWrapping="Wrap" />
             <Border BorderThickness="1,1,1,1" Grid.Column="1" Grid.Row="2" BorderBrush="DarkSlateGray"/>
-            <StackPanel Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5">  
+            <StackPanel Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5">
                 <TextBlock Grid.Row="2" Grid.Column="1" Text="Start Date" FontWeight="Bold" />
                 <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding SelectedTicket.StartDate, StringFormat=d}" />
                 <TextBlock Grid.Row="3" Grid.Column="1" Text="End Date" FontWeight="Bold" />
@@ -88,18 +92,42 @@
             <ListBox Grid.Row="2" Grid.Column="2" ItemsSource="{Binding SelectedTicket.CustomFields}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Margin="4" >
+                        <StackPanel Margin="4" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible" >
                             <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
                             <TextBlock Text="{Binding Values/Info}"/>
+                            <TextBlock Text="{Binding Values/Info}" DataContext="{Binding Values/Info}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <Button Grid.Column="2" Grid.Row="3" Content="Testrail" Command="{Binding Path=DisplayTestrailInfoCommand}"/>
+        </Grid>
+        
+        <Grid Margin="5" Grid.Column="2" Grid.Row="5"  Background="#FFE4E4E4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="2" Grid.Column="2"/>
+            <ListBox Grid.Row="3" Grid.Column="2" ItemsSource="{Binding GetTestrailTestRuns.SelectedTestRuns}" >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Margin="4" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible" >
+                            <TextBlock Text=" Test run:" FontWeight="Bold"/>
+                            <TextBlock Text="{Binding Name}"/>
+                            <TextBlock Text="Description" FontWeight="Bold"/>
+                            <TextBlock Text="{Binding Description}" />
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
         </Grid>
-
-
-        
-
     </Grid>
 </Window>
 

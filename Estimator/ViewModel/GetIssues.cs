@@ -7,6 +7,8 @@ using Estimator.Helpers;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Estimator.Helpers;
+using System;
+using System.Diagnostics;
 
 namespace Estimator.ViewModel
 {
@@ -26,7 +28,21 @@ namespace Estimator.ViewModel
                 issues = value;
                 RaisePropertyChanged("Issues");
             }
-        } 
+        }
+        private string testrailId;
+        public string TestrailId
+        {
+            get
+            {
+                return testrailId;
+            }
+            set
+            {
+                testrailId = value;
+                RaisePropertyChanged("TestrailId");
+            }
+        }
+
         NameValueCollection Parameters = new NameValueCollection();
 
         public GetIssues()
@@ -40,13 +56,24 @@ namespace Estimator.ViewModel
         }
         public GetIssues(NameValueCollection parameters)
         {
-            //Parameters.Add(key, value);
             foreach (var issue in Connection.GetObjects<Issue>(parameters))
             {
-                Issues.Add(new Ticket(issue.Id, issue.Subject, issue.StartDate, issue.StartDate, issue.StartDate, issue.StartDate, issue.Status.Id, issue.Status.Name, issue.CustomFields));
+                foreach(var issueCustomField in issue.CustomFields)
+                {
+                    if(issueCustomField.Name.Equals("Testrail id"))
+                    {
+                        foreach(var customFieldValue in issueCustomField.Values)
+                        {
+                            testrailId = customFieldValue.Info;
+                        }
+                    }
+                }
+                
+                issues.Add(new Ticket(issue.Id, issue.Subject, issue.StartDate, issue.StartDate, issue.StartDate, issue.StartDate, issue.Status.Id, issue.Status.Name, issue.CustomFields, testrailId));
             }
-            Issues.ToObservableCollection();
+            issues.ToObservableCollection();
         }
+
         public event PropertyChangedEventHandler PropertyChanged;
         public void RaisePropertyChanged(string propertyName)
         {

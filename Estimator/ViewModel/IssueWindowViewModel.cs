@@ -15,6 +15,7 @@ namespace Estimator.ViewModel
         public ICommand FilterByStatusChosenCommand { get; set; }
         public ICommand CheckIsStartedCommand { get; set; }
         public ICommand DisplayTicketDetailsCommand { get; set; }
+        public ICommand DisplayTestrailInfoCommand { get; set; }
 
         private GetStatuses getStatuses;
         public GetStatuses GetStatuses
@@ -55,7 +56,21 @@ namespace Estimator.ViewModel
                 RaisePropertyChanged("GetTrackers");
             }
         }
-        
+
+        private GetTestrailTestRuns getTestrailTestRuns;
+        public GetTestrailTestRuns GetTestrailTestRuns
+        {
+            get
+            {
+                return getTestrailTestRuns;
+            }
+            set
+            {
+                getTestrailTestRuns = value;
+                RaisePropertyChanged("GetTestrailTestRuns");
+            }
+        }
+
         public NameValueCollection Parameters { get; set; } = new NameValueCollection();
         public string ProjectId { get; set; } = ConfigurationSettings.AppSettings.Get("projectTasks");
         public string TrackerNp { get; set; } = ConfigurationSettings.AppSettings.Get("trackerNP");
@@ -109,14 +124,41 @@ namespace Estimator.ViewModel
             }
         }
 
+        private TestrailMilestone testtrailMilestone;
+        public TestrailMilestone TestrailMilestone
+        {
+            get
+            {
+                return testtrailMilestone;
+            }
+            set
+            {
+                testtrailMilestone = value;
+                RaisePropertyChanged("TestrailMilestone");
+            }
+        }
+
+        private string milestoneName;
+        public string MilestoneName
+        {
+            get
+            {
+                return milestoneName;
+            }
+            set
+            {
+                milestoneName = value;
+                RaisePropertyChanged("MilestoneName");
+            }
+        }
+
         public IssueWindowViewModel()
         {
             GetStatuses = new GetStatuses("tracker_id", TrackerNp);
-            GetIssues = new GetIssues();
-            GetTrackers = new GetTrackers();
             FilterByStatusChosenCommand = new Commander(FilterByStatusChosen , CanFilterByStatusChosen);
             CheckIsStartedCommand = new Commander(CheckIsStarted, CanCheckIsStarted);
             DisplayTicketDetailsCommand = new Commander(DisplayTicketDetails, CanDisplayTicketDetails);
+            DisplayTestrailInfoCommand = new Commander(DisplayTestrailInfo, CanDisplayTestrailInfo);
         }
 
         private void FilterByStatusChosen(object obj)
@@ -124,7 +166,7 @@ namespace Estimator.ViewModel
             Parameters.Clear();
             Parameters.Add("tracker_id", TrackerNp);
             Parameters.Add("status_id", SelectedStatus.StatusId.ToString());
-            GetIssues = new GetIssues(Parameters);
+            GetIssues = new GetIssues(Parameters);    
         }
 
         private bool CanFilterByStatusChosen(object obj)
@@ -132,6 +174,19 @@ namespace Estimator.ViewModel
             if (SelectedStatus != null)
                 return true;
             return false;
+        }
+        private void DisplayTestrailInfo(object obj)
+        {
+            GetTestrailTestRuns = new GetTestrailTestRuns(Convert.ToUInt64(SelectedTicket.TestrailId));
+        }
+
+        
+        private bool CanDisplayTestrailInfo(object obj)
+        {
+            if (SelectedTicket != null)
+                return true;
+            return false;
+
         }
 
         private void DisplayTicketDetails(object obj)

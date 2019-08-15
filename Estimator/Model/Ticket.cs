@@ -28,6 +28,21 @@ namespace Estimator.Model
             CustomFields = customFields;
 
         }
+        public Ticket(int id, string subject, DateTime? startDate,
+           DateTime? endDate, DateTime? uatStartDate, DateTime? uatEndDate,
+           int status, string statusName, IList<IssueCustomField> customFields, string testrailId)
+        {
+            Id = id;
+            Subject = subject;
+            StartDate = startDate;
+            EndDate = endDate;
+            UatStartDate = uatStartDate;
+            UatEndDate = uatEndDate;
+            StatusId = status;
+            StatusName = statusName;
+            CustomFields = customFields;
+            TestrailId = testrailId;
+        }
         private int id;
         public int Id
         {
@@ -143,6 +158,19 @@ namespace Estimator.Model
             {
                 customFields = value;
                 RaisePropertyChanged("CustomFields");
+            }
+        }
+        private string testrailId;
+        public string TestrailId
+        {
+            get
+            {
+                return testrailId;
+            }
+            set
+            {
+                testrailId = value;
+                RaisePropertyChanged("TestrailId");
             }
         }
 

@@ -74,10 +74,9 @@ namespace Estimator.Model
                 RaisePropertyChanged("IsCompleted");
             }
         }
-
-        public TestrailMilestone()
+        public TestrailMilestone(string milestoneName)
         {
-
+            MilestoneName = milestoneName;
         }
 
         public TestrailMilestone(string milestoneName, ulong milestoneId, bool? isStarted, DateTime? dueDate, bool? isCompleted)

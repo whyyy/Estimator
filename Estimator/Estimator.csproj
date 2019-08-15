@@ -246,9 +246,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Helpers\Commander.cs" />
-    <Compile Include="Helpers\DateConverter.cs" />
     <Compile Include="Helpers\ListToObservableCollection.cs" />
-    <Compile Include="ViewModel\EstimatorViewModel.cs" />
+    <Compile Include="Model\TestrailTestRun.cs" />
     <Compile Include="View\HomeWindow.xaml.cs">
       <DependentUpon>HomeWindow.xaml</DependentUpon>
     </Compile>
@@ -275,7 +274,7 @@
     <Compile Include="Model\Ticket.cs" />
     <Compile Include="ViewModel\GetIssues.cs" />
     <Compile Include="ViewModel\GetStatuses.cs" />
-    <Compile Include="ViewModel\GetTestrailProjects.cs" />
+    <Compile Include="ViewModel\GetTestrailTestRuns.cs" />
     <Compile Include="ViewModel\GetTrackers.cs" />
     <Compile Include="ViewModel\IssueWindowViewModel.cs" />
     <Compile Include="ViewModel\RedmineConnection.cs" />
