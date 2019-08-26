@@ -1,0 +1,14 @@
+<settings>
+  <item>
+    <key>tracker_np</key>
+    <value>4</value>
+  </item>
+  <item>
+    <key>host</key>
+    <value>http://127.0.0.1/redmine/</value>
+  </item>
+  <item>
+    <key>api</key>
+    <value>e698087c45046c4e5b45e7b666fc3aa51d94f37f</value>
+  </item>
+</settings>

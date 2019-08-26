@@ -3,7 +3,7 @@ using System.ComponentModel;
 
 namespace Estimator.Model
 {
-    class TestrailTestRun : INotifyPropertyChanged
+    public class TestRun : INotifyPropertyChanged
     {
         private ulong? id;
         public ulong? Id
@@ -114,7 +114,7 @@ namespace Estimator.Model
 
 
 
-        public TestrailTestRun(string name, ulong? iD, uint? passedCount, string description, ulong? milestoneId, uint? untestedNumber, uint? failedNumber, ulong warningCasesNumber)
+        public TestRun(string name, ulong? iD, uint? passedCount, string description, ulong? milestoneId, uint? untestedNumber, uint? failedNumber, ulong warningCasesNumber)
         {
             Name = name;
             Id = iD;

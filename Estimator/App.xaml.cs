@@ -1,11 +1,11 @@
 ﻿using System.Windows;
 
-namespace Estimator
+namespace Estimator.App
 {
     /// <summary>
     /// Logika interakcji dla klasy App.xaml
     /// </summary>
-    public partial class App : Application
+    public partial class Apps : Application
     {
     }
 }
