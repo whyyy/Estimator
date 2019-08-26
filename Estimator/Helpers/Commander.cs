@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace Estimator.Data.Helpers
+namespace Estimator.Helpers
 {
     public class Commander : ICommand
     {
