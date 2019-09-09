@@ -40,8 +40,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Helpers\Commander.cs" />
-    <Compile Include="Helpers\ListToObservableCollection.cs" />
     <Compile Include="Model\DataProvider.cs" />
     <Compile Include="Model\Status.cs" />
     <Compile Include="Model\TestRun.cs" />

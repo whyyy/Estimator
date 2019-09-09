@@ -1,40 +1,26 @@
-﻿using Estimator.Data.Model;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.ComponentModel;
-using System.Configuration;
-using System.Windows.Data;
-using System.Windows.Input;
-using Estimator.Data.Helpers;
-using System.Windows;
-using Estimator.App.View;
+﻿using Estimator.App.Helpers;
+using Estimator.Data.Model;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Input;
 
 namespace Estimator.App.ViewModel
 {
     class IssueWindowViewModel : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void RaisePropertyChanged(string propertyName)
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-        }
-        public ICommand FilterByStatusChosenCommand { get; set; }
-
         private void FilterByStatusChosen(object obj)
         {
-            Issues = new DataProvider("status_id", SelectedStatus.Id.ToString());
-        }   
-
+            _issues = new DataProvider("status_id", SelectedStatus.Id.ToString());
+            Issues = _issues.Issues;
+        }
         private bool _canFilterByStatusChosen(object obj)
         {
             if (SelectedStatus != null)
                 return true;
             return false;
         }
-        public ICommand DisplaySettingsWindowCommand { get; set; }
         private void DisplaySettingsWindow()
         {
             Messenger.Default.Send(new NotificationMessage("SettingsView"));
@@ -43,67 +29,70 @@ namespace Estimator.App.ViewModel
         {
             return true;
         }
-
-        public RelayCommand ShowSettingsView { private set; get; }
-
-        public IssueWindowViewModel() 
+        private DataProvider _issues;
+        private DataProvider _statuses;
+        public IssueWindowViewModel()
         {
             FilterByStatusChosenCommand = new Commander(FilterByStatusChosen, _canFilterByStatusChosen);
             _statuses = new DataProvider();
-    }
-        
-        private Status _selectedStatus;
+            Statuses = _statuses.Statuses;
+        }
+        public ICommand FilterByStatusChosenCommand { get; set; }
+        public ICommand DisplaySettingsWindowCommand { get; set; }
+        public RelayCommand ShowSettingsView { private set; get; }
         public Status SelectedStatus
         {
             get
             {
-                return _selectedStatus;
+                return _statuses.Status;
             }
             set
             {
-                _selectedStatus = value;
+                _statuses.Status = value;
                 RaisePropertyChanged("SelectedStatus");
             }
         }
-        private Ticket _selectedIssue;
         public Ticket SelectedIssue
         {
             get
             {
-                return _selectedIssue;
+                return _issues.Issue;
             }
             set
             {
-                _selectedIssue = value;
+                _issues.Issue = value;
                 RaisePropertyChanged("SelectedIssue");
             }
         }
-
-        private DataProvider _issues;
-        public DataProvider Issues
+        public List<Ticket> Issues
         {
             get
             {
-                return _issues;
+                return _issues.Issues;
             }
             set
             {
-                _issues = value;
+                _issues.Issues = value;
                 RaisePropertyChanged("Issues");
             }
         }
-        private DataProvider _statuses;
-        public DataProvider Statuses
+        public List<Status> Statuses
         {
             get
             {
-                return _statuses;
+                return _statuses.Statuses;
             }
             set
             {
-                _statuses = value;
+                _statuses.Statuses = value;
                 RaisePropertyChanged("Statuses");
             }
-        }              
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void RaisePropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }        
     }
 }

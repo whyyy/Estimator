@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace Estimator.Helpers
+namespace Estimator.App.Helpers
 {
     static class ListToObservableCollection
     {
@@ -12,6 +12,5 @@ namespace Estimator.Helpers
                 _observableCollection.Add(element);
             return _observableCollection;
         }
-
     }
 }

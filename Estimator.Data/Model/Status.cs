@@ -13,7 +13,6 @@ namespace Estimator.Data.Model
             Id = id;
             StatusName = status;
         }
-
         public int Id { get; set; }
         public string StatusName { get; set; }
     }

@@ -41,7 +41,6 @@ namespace Estimator.Data.Model
             CustomFields = customFields;
             MilestoneId = milestoneId;
         }
-
         public int Id { get; set; }
         public string Subject { get; set; }
         public DateTime? StartDate { get; set; }
@@ -52,7 +51,6 @@ namespace Estimator.Data.Model
         public string StatusName { get; set; }
         public IList<IssueCustomField> CustomFields { get; set; }
         public string MilestoneId { get; set; }
-
     }
 }
 

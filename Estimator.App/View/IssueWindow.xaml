@@ -29,7 +29,7 @@
         </Grid.RowDefinitions>
         <Button Content="Settings" Command="{Binding DisplaySettingsWindowCommand}"  Grid.Column="0" Grid.Row="2" Height="20" VerticalAlignment="Top"/>
         <TextBlock Text="Status"  Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <ComboBox ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="5,0,5,0" Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Statuses.Statuses}" SelectedItem="{Binding SelectedStatus}">
+        <ComboBox ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="5,0,5,0" Grid.Row="1" Grid.Column="1" SelectedItem="{Binding SelectedStatus}" ItemsSource="{Binding Statuses}">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
                     <i:InvokeCommandAction Command="{Binding FilterByStatusChosenCommand}">
@@ -44,11 +44,11 @@
         </ComboBox>
         <Grid Grid.Column="1" Grid.RowSpan="5" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top">
             <ScrollViewer Margin="5" Grid.Row="2" Grid.Column="2" >
-                <ListBox Grid.Row="3" Grid.Column="2" ItemsSource="{Binding Issues.Issues}" SelectionMode="Single" SelectedItem="{Binding SelectedIssue}">
+                <ListBox Grid.Row="3" Grid.Column="2"  SelectionMode="Single" ItemsSource="{Binding Issues}" SelectedItem="{Binding SelectedIssue}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <WrapPanel Margin="4" HorizontalAlignment="Center">
-                                <TextBlock HorizontalAlignment="Center" Text="{Binding Subject, Mode=OneWay}"/>
+                                <TextBlock HorizontalAlignment="Center" Text="{Binding Subject}"/>
                             </WrapPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>

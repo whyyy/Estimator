@@ -1,4 +1,5 @@
 ﻿
+using Estimator.App.ViewModel;
 using GalaSoft.MvvmLight.Messaging;
 using Prism.Mvvm;
 using System.Windows;
@@ -15,6 +16,7 @@ namespace Estimator.App.View
         public IssueWindow()
         {
             InitializeComponent();
+            DataContext = new ViewModel.IssueWindowViewModel();
         }
 
     }
