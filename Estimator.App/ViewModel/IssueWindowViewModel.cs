@@ -10,7 +10,7 @@ namespace Estimator.App.ViewModel
 {
     class IssueWindowViewModel : INotifyPropertyChanged
     {
-        private void FilterByStatusChosen(object obj)
+        private void _filterByStatusChosen(object obj)
         {
             _issues = new DataProvider("status_id", SelectedStatus.Id.ToString());
             Issues = _issues.Issues;
@@ -21,7 +21,7 @@ namespace Estimator.App.ViewModel
                 return true;
             return false;
         }
-        private void DisplaySettingsWindow()
+        private void _displaySettingsWindow()
         {
             Messenger.Default.Send(new NotificationMessage("SettingsView"));
         }
@@ -33,7 +33,7 @@ namespace Estimator.App.ViewModel
         private DataProvider _statuses;
         public IssueWindowViewModel()
         {
-            FilterByStatusChosenCommand = new Commander(FilterByStatusChosen, _canFilterByStatusChosen);
+            FilterByStatusChosenCommand = new Commander(_filterByStatusChosen, _canFilterByStatusChosen);
             _statuses = new DataProvider();
             Statuses = _statuses.Statuses;
         }
