@@ -5,14 +5,16 @@ using Estimator.Redmine;
 using Redmine.Net.Api;
 using System.ComponentModel;
 using System.Collections.Specialized;
-using Estimator.Model;
+
 using System.Linq;
+using TestRail;
 
 namespace Estimator.Data.Model
 {
     public class DataProvider
     {
         private static RedmineConnectionDetails _redmineConnectionDetails = new RedmineConnectionDetails();
+        private TestRailClient _testrailConnection { get; set; } = new TestRailClient("https://binashombre.testrail.io/", "matib95@gmail.com", "h0A4GCUnFS4Fi/XbaS1V");
         public DataProvider()
         {
             Issues = new List<Ticket>();
@@ -26,6 +28,21 @@ namespace Estimator.Data.Model
                 Statuses.Add(new Status(status.Id, status.Name));
             }
         }
+        public DataProvider(string milestoneId)
+        {
+            foreach (var testRun in _testrailConnection.GetRuns(1))
+            {
+                Testruns.Add(new TestRun(testRun.Name, testRun.ID, testRun.PassedCount, testRun.Description, testRun.MilestoneID, testRun.UntestedCount, testRun.FailedCount, testRun.CustomStatus1Count));
+            }
+            foreach (var testRun in Testruns)
+            {
+                if (testRun.MilestoneId.Equals(milestoneId))
+                {
+                    SelectedTestruns.Add(new TestRun(testRun.Name, testRun.Id, testRun.PassedCounter, testRun.Description, testRun.MilestoneId, testRun.UntestedNumber, testRun.FailedNumber, testRun.WarningCasesNumber));
+                }
+            }
+
+        }
         public DataProvider(string key, string value)
         {
             Issues = new List<Ticket>();
@@ -38,8 +55,11 @@ namespace Estimator.Data.Model
         }
         public List<Ticket> Issues { get; set; }
         public List<Status> Statuses { get; set; }
+        public List<TestRun> Testruns { get; set; }
+        public List<TestRun> SelectedTestruns { get; set; }
         public Status Status { get; set; }
         public Ticket Issue { get; set; }
+        public TestRun Testrun { get; set; }
         public NameValueCollection Parameters = new NameValueCollection();
         public RedmineManager RedmineConnection = new RedmineManager(_redmineConnectionDetails.Host, _redmineConnectionDetails.Api); 
     }

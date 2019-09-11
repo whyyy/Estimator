@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace Estimator.Model
+namespace Estimator.Data.Model
 {
     public class TestRun 
     {
