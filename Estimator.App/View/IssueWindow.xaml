@@ -73,8 +73,7 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <TextBlock FontSize="14" Grid.Row="0" Grid.Column="1" Text="Project Name" FontWeight="Bold" />
-            <TextBlock FontSize="14" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" TextWrapping="Wrap" Text="{Binding Selected
-                .Subject}" />
+            <TextBlock FontSize="14" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" TextWrapping="Wrap" Text="{Binding Selected.Subject}" />
             <Border BorderThickness="1,1,1,1" Grid.Column="1" Grid.Row="2" BorderBrush="DarkSlateGray"/>
             <StackPanel Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5">
                 <TextBlock Grid.Row="2" Grid.Column="1" Text="Start Date" FontWeight="Bold" HorizontalAlignment="Left" />
