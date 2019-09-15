@@ -44,7 +44,7 @@
         </ComboBox>
         <Grid Grid.Column="1" Grid.RowSpan="5" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top">
             <ScrollViewer Margin="5" Grid.Row="2" Grid.Column="2" >
-                <ListBox Grid.Row="3" Grid.Column="2"  SelectionMode="Single" ItemsSource="{Binding Issues}" SelectedItem="{Binding SelectedIssue}">
+                <ListBox Grid.Row="3" Grid.Column="2"  SelectionMode="Single" ItemsSource="{Binding Tickets}" SelectedItem="{Binding SelectedTicket}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <WrapPanel Margin="4" HorizontalAlignment="Center">
@@ -73,23 +73,24 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <TextBlock FontSize="14" Grid.Row="0" Grid.Column="1" Text="Project Name" FontWeight="Bold" />
-            <TextBlock FontSize="14" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" TextWrapping="Wrap" Text="{Binding SelectedIssue.Subject}" />
+            <TextBlock FontSize="14" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" TextWrapping="Wrap" Text="{Binding Selected
+                .Subject}" />
             <Border BorderThickness="1,1,1,1" Grid.Column="1" Grid.Row="2" BorderBrush="DarkSlateGray"/>
             <StackPanel Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5">
                 <TextBlock Grid.Row="2" Grid.Column="1" Text="Start Date" FontWeight="Bold" HorizontalAlignment="Left" />
-                <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding SelectedIssue.StartDate, StringFormat=d}" />
+                <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding SelectedTicket.StartDate, StringFormat=d}" />
                 <TextBlock Grid.Row="3" Grid.Column="1" Text="End Date" FontWeight="Bold" />
-                <TextBlock Grid.Row="3" Grid.Column="2" Text="{Binding SelectedIssue.EndDate, StringFormat=d}" />
+                <TextBlock Grid.Row="3" Grid.Column="2" Text="{Binding SelectedTicket.EndDate, StringFormat=d}" />
                 <TextBlock Grid.Row="4" Grid.Column="1" Text="Status" FontWeight="Bold" />
-                <TextBlock Grid.Row="4" Grid.Column="2" Text="{Binding SelectedIssue.StatusName}" />
+                <TextBlock Grid.Row="4" Grid.Column="2" Text="{Binding SelectedTicket.StatusName}" />
                 <TextBlock Grid.Row="4" Grid.Column="1" Text="UAT Start Date" FontWeight="Bold" />
-                <TextBlock Grid.Row="4" Grid.Column="2" Text="{Binding SelectedIssue.UatStartDate, StringFormat=d}" />
+                <TextBlock Grid.Row="4" Grid.Column="2" Text="{Binding SelectedTicket.UatStartDate, StringFormat=d}" />
                 <TextBlock Grid.Row="6" Grid.Column="1" Text="UAT End Date" FontWeight="Bold" />
-                <TextBlock Grid.Row="6" Grid.Column="2" Text="{Binding SelectedIssue.UatEndDate, StringFormat=d}" />
+                <TextBlock Grid.Row="6" Grid.Column="2" Text="{Binding SelectedTicket.UatEndDate, StringFormat=d}" />
             </StackPanel>
             <Grid  MaxHeight="200" Grid.Column="2" Grid.Row="2">
                 <ScrollViewer >
-                    <ListView Background="#FFE4E4E4" ItemsSource="{Binding SelectedIssue.CustomFields}">
+                    <ListView Background="#FFE4E4E4" ItemsSource="{Binding SelectedTicket.CustomFields}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel>

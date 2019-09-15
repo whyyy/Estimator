@@ -17,10 +17,10 @@ namespace Estimator.Data.Model
         private TestRailClient _testrailConnection { get; set; } = new TestRailClient("https://binashombre.testrail.io/", "matib95@gmail.com", "h0A4GCUnFS4Fi/XbaS1V");
         public DataProvider()
         {
-            Issues = new List<Ticket>();
+            Tickets = new List<Ticket>();
             foreach (var issue in RedmineConnection.GetObjects<Issue>("tracker_id", "4"))
             {
-                Issues.Add(new Ticket(issue.Id, issue.Subject, issue.StartDate, issue.StartDate, issue.StartDate, issue.StartDate, issue.Status.Id, issue.Status.Name, issue.CustomFields));
+                Tickets.Add(new Ticket(issue.Id, issue.Subject, issue.StartDate, issue.StartDate, issue.StartDate, issue.StartDate, issue.Status.Id, issue.Status.Name, issue.CustomFields));
             }
             Statuses = new List<Status>();
             foreach (var status in RedmineConnection.GetObjects<IssueStatus>("tracker_id", "4"))
@@ -45,20 +45,20 @@ namespace Estimator.Data.Model
         }
         public DataProvider(string key, string value)
         {
-            Issues = new List<Ticket>();
+            Tickets = new List<Ticket>();
             Parameters.Add("tracker_id", "4");
             Parameters.Add(key, value);
             foreach (var issue in RedmineConnection.GetObjects<Issue>(Parameters))
             {
-                Issues.Add(new Ticket(issue.Id, issue.Subject, issue.StartDate, issue.StartDate, issue.StartDate, issue.StartDate, issue.Status.Id, issue.Status.Name, issue.CustomFields));
+                Tickets.Add(new Ticket(issue.Id, issue.Subject, issue.StartDate, issue.StartDate, issue.StartDate, issue.StartDate, issue.Status.Id, issue.Status.Name, issue.CustomFields));
             }
         }
-        public List<Ticket> Issues { get; set; }
+        public List<Ticket> Tickets { get; set; }
         public List<Status> Statuses { get; set; }
         public List<TestRun> Testruns { get; set; }
         public List<TestRun> SelectedTestruns { get; set; }
         public Status Status { get; set; }
-        public Ticket Issue { get; set; }
+        public Ticket Ticket { get; set; }
         public TestRun Testrun { get; set; }
         public NameValueCollection Parameters = new NameValueCollection();
         public RedmineManager RedmineConnection = new RedmineManager(_redmineConnectionDetails.Host, _redmineConnectionDetails.Api); 

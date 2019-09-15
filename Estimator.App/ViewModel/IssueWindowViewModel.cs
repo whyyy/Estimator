@@ -12,8 +12,8 @@ namespace Estimator.App.ViewModel
     {
         private void _filterByStatusChosen(object obj)
         {
-            _issues = new DataProvider("status_id", SelectedStatus.Id.ToString());
-            Issues = _issues.Issues;
+            _tickets = new DataProvider("status_id", SelectedStatus.Id.ToString());
+            Tickets = _tickets.Tickets;
         }
         private bool _canFilterByStatusChosen(object obj)
         {
@@ -29,7 +29,7 @@ namespace Estimator.App.ViewModel
         {
             return true;
         }
-        private DataProvider _issues;
+        private DataProvider _tickets;
         private DataProvider _statuses;
         public IssueWindowViewModel()
         {
@@ -52,28 +52,28 @@ namespace Estimator.App.ViewModel
                 RaisePropertyChanged("SelectedStatus");
             }
         }
-        public Ticket SelectedIssue
+        public Ticket SelectedTicket
         {
             get
             {
-                return _issues.Issue;
+                return _tickets.Ticket;
             }
             set
             {
-                _issues.Issue = value;
-                RaisePropertyChanged("SelectedIssue");
+                _tickets.Ticket = value;
+                RaisePropertyChanged("SelectedTicket");
             }
         }
-        public List<Ticket> Issues
+        public List<Ticket> Tickets
         {
             get
             {
-                return _issues.Issues;
+                return _tickets.Tickets;
             }
             set
             {
-                _issues.Issues = value;
-                RaisePropertyChanged("Issues");
+                _tickets.Tickets = value;
+                RaisePropertyChanged("Tickets");
             }
         }
         public List<Status> Statuses
