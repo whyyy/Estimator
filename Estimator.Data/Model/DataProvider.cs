@@ -1,19 +1,14 @@
-﻿using System.Collections.Generic;
-using Redmine.Net;
-using Redmine.Net.Api.Types;
-using Estimator.Redmine;
+﻿using Estimator.Redmine;
 using Redmine.Net.Api;
-using System.ComponentModel;
+using Redmine.Net.Api.Types;
+using System.Collections.Generic;
 using System.Collections.Specialized;
-
-using System.Linq;
 using TestRail;
 
 namespace Estimator.Data.Model
 {
     public class DataProvider
     {
-        private static RedmineConnectionDetails _redmineConnectionDetails = new RedmineConnectionDetails();
         private TestRailClient _testrailConnection { get; set; } = new TestRailClient("https://binashombre.testrail.io/", "matib95@gmail.com", "h0A4GCUnFS4Fi/XbaS1V");
         public DataProvider()
         {
@@ -61,6 +56,7 @@ namespace Estimator.Data.Model
         public Ticket Ticket { get; set; }
         public TestRun Testrun { get; set; }
         public NameValueCollection Parameters = new NameValueCollection();
-        public RedmineManager RedmineConnection = new RedmineManager(_redmineConnectionDetails.Host, _redmineConnectionDetails.Api); 
+        public RedmineConnectionProvider RedmineConnectionProvider = new RedmineConnectionProvider();
+        public RedmineManager RedmineConnection = new RedmineManager(RedmineConnectionProvider.Host, RedmineConnectionProvider.Api); 
     }
 }
