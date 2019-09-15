@@ -44,9 +44,10 @@
       <HintPath>..\packages\redmine-api.2.0.38\lib\net452\redmine-net452-api.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="RedmineConnectionDetails.cs" />
+    <Compile Include="RedmineConnectionProvider.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
