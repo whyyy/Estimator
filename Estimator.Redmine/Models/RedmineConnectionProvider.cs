@@ -1,6 +1,6 @@
 ﻿using System.Configuration;
 
-namespace Estimator.Redmine
+namespace Estimator.Redmine.Model
 { 
    public class RedmineConnectionProvider
     {

@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Estimator.Data.Model
+namespace Estimator.Redmine.Model
 {
     public class Ticket 
     {
