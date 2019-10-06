@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
-
-namespace Estimator.Data.Model
+﻿namespace Estimator.Testrail.Model
 {
     public class TestRun 
     {
