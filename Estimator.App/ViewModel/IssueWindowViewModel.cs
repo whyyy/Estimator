@@ -1,5 +1,6 @@
 ﻿using Estimator.App.Helpers;
 using Estimator.Data.Model;
+using Estimator.Redmine.Model;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using System.Collections.Generic;
@@ -12,8 +13,9 @@ namespace Estimator.App.ViewModel
     {
         private void _filterByStatusChosen(object obj)
         {
-            _tickets = new DataProvider("status_id", SelectedStatus.Id.ToString());
-            Tickets = _tickets.Tickets;
+            _tickets = new List<Ticket>();
+            _tickets = _loadedData.GetTickets(SelectedStatus.Id);
+            Tickets = _tickets;
         }
         private bool _canFilterByStatusChosen(object obj)
         {
@@ -29,13 +31,15 @@ namespace Estimator.App.ViewModel
         {
             return true;
         }
-        private DataProvider _tickets;
-        private DataProvider _statuses;
+        private DataProvider _loadedData;
+        private List<Status> _statuses;
+        private List<Ticket> _tickets;
         public IssueWindowViewModel()
         {
             FilterByStatusChosenCommand = new Commander(_filterByStatusChosen, _canFilterByStatusChosen);
-            _statuses = new DataProvider();
-            Statuses = _statuses.Statuses;
+            _loadedData = new DataProvider();
+            _statuses = _loadedData.RedmineData.Statuses;
+            Statuses = _statuses;
         }
         public ICommand FilterByStatusChosenCommand { get; set; }
         public ICommand DisplaySettingsWindowCommand { get; set; }
@@ -44,11 +48,11 @@ namespace Estimator.App.ViewModel
         {
             get
             {
-                return _statuses.Status;
+                return _loadedData.Status;
             }
             set
             {
-                _statuses.Status = value;
+                _loadedData.Status = value;
                 RaisePropertyChanged("SelectedStatus");
             }
         }
@@ -56,11 +60,11 @@ namespace Estimator.App.ViewModel
         {
             get
             {
-                return _tickets.Ticket;
+                return _loadedData.Ticket;
             }
             set
             {
-                _tickets.Ticket = value;
+                _loadedData.Ticket = value;
                 RaisePropertyChanged("SelectedTicket");
             }
         }
@@ -68,11 +72,11 @@ namespace Estimator.App.ViewModel
         {
             get
             {
-                return _tickets.Tickets;
+                return _tickets;
             }
             set
             {
-                _tickets.Tickets = value;
+                _tickets = value;
                 RaisePropertyChanged("Tickets");
             }
         }
@@ -80,11 +84,11 @@ namespace Estimator.App.ViewModel
         {
             get
             {
-                return _statuses.Statuses;
+                return _statuses;
             }
             set
             {
-                _statuses.Statuses = value;
+                _statuses = value;
                 RaisePropertyChanged("Statuses");
             }
         }
