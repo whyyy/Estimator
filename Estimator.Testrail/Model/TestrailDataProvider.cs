@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using TestRail;
@@ -16,6 +17,8 @@ namespace Estimator.Testrail.Model
             Testruns = GetTestRuns();
         }
 
+        public List<TestRun> Testruns { get; set; }
+
         List<TestRun> GetTestRuns()
         {
             _testRuns = new List<TestRun>();
@@ -25,7 +28,5 @@ namespace Estimator.Testrail.Model
             }
             return _testRuns;
         }
-
-        public List<TestRun> Testruns { get; set; }
     }
 }
