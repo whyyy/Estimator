@@ -51,9 +51,6 @@
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
-    <Reference Include="redmine-net452-api, Version=2.0.38.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\redmine-api.2.0.38\lib\net452\redmine-net452-api.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.IO.FileSystem.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
