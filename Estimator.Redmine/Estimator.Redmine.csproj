@@ -47,7 +47,10 @@
     <Reference Include="System.Configuration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="RedmineConnectionProvider.cs" />
+    <Compile Include="Models\RedmineConnectionProvider.cs" />
+    <Compile Include="Models\Status.cs" />
+    <Compile Include="Models\Ticket.cs" />
+    <Compile Include="Models\RedmineDataProvider.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
