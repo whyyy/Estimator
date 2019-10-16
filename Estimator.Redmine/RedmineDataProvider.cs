@@ -1,29 +1,36 @@
-﻿using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Configuration;
+﻿using Estimator.Model;
 using Redmine.Net.Api;
 using Redmine.Net.Api.Types;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Configuration;
 
-namespace Estimator.Redmine.Model
+namespace Estimator.Redmine
 {
     public class RedmineDataProvider
     {
         private List<Status> _statuses;
+
         private List<Ticket> _tickets;
+
         private static readonly string _trackerId = ConfigurationManager.AppSettings["tracker"];
+
         private NameValueCollection _parameters = new NameValueCollection();
-              
+
+        public List<Ticket> Tickets;
+
+        public List<Status> Statuses;
+
+        public RedmineConnectionProvider RedmineConnectionProvider = new RedmineConnectionProvider();
+
+        public RedmineManager RedmineConnection = new RedmineManager(RedmineConnectionProvider.Host, RedmineConnectionProvider.Api);
+
         public RedmineDataProvider()
         {
             _parameters.Add("tracker_id", _trackerId);
             Tickets = GetTickets();
             Statuses = GetStatuses();
         }
-
-        public List<Ticket> Tickets { get; set; }
-        public List<Status> Statuses { get; set; }
-        public RedmineConnectionProvider RedmineConnectionProvider = new RedmineConnectionProvider();
-        public RedmineManager RedmineConnection = new RedmineManager(RedmineConnectionProvider.Host, RedmineConnectionProvider.Api);
 
         List<Status> GetStatuses()
         {
@@ -40,7 +47,8 @@ namespace Estimator.Redmine.Model
             _tickets = new List<Ticket>();
             foreach (var issue in RedmineConnection.GetObjects<Issue>(_parameters))
             {
-                _tickets.Add(new Ticket(issue.Id, issue.Subject, issue.StartDate, issue.StartDate, issue.StartDate, issue.StartDate, issue.Status.Id, issue.Status.Name, issue.CustomFields));
+                _tickets.Add(new Ticket(issue.Id, issue.Subject, issue.StartDate, issue.StartDate, issue.StartDate, 
+                    issue.StartDate, issue.Status.Id, issue.Status.Name, issue.CustomFields));
             }
             return _tickets;
         }

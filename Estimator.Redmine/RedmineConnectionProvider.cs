@@ -1,6 +1,6 @@
 ﻿using System.Configuration;
 
-namespace Estimator.Redmine.Model
+namespace Estimator.Redmine
 { 
    public class RedmineConnectionProvider
     {
@@ -9,7 +9,9 @@ namespace Estimator.Redmine.Model
             Host = ConfigurationManager.AppSettings["Host"];
             Api = ConfigurationManager.AppSettings["Api"];
         }
+
         public static string Host { get; set; }
+
         public static string Api { get; set; }
     }
 }

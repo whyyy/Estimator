@@ -40,17 +40,21 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="redmine-net452-api, Version=2.0.38.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\redmine-api.2.0.38\lib\net452\redmine-net452-api.dll</HintPath>
+    <Reference Include="redmine-net452-api, Version=2.0.42.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\redmine-api.2.0.42\lib\net452\redmine-net452-api.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\RedmineConnectionProvider.cs" />
-    <Compile Include="Models\Status.cs" />
-    <Compile Include="Models\Ticket.cs" />
-    <Compile Include="Models\RedmineDataProvider.cs" />
+    <Compile Include="RedmineConnectionProvider.cs" />
+    <Compile Include="RedmineDataProvider.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Estimator.Model\Estimator.Model.csproj">
+      <Project>{34B5B7DE-A7CD-4827-BC4D-2BF37681C0DD}</Project>
+      <Name>Estimator.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
