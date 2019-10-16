@@ -40,8 +40,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\TestrailDataProvider.cs" />
-    <Compile Include="Model\TestRun.cs" />
+    <Compile Include="TestrailDataProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
@@ -60,6 +59,12 @@
     <Reference Include="TestRail, Version=2.0.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\TestRail.2.0.4\lib\net461\TestRail.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Estimator.Model\Estimator.Model.csproj">
+      <Project>{34B5B7DE-A7CD-4827-BC4D-2BF37681C0DD}</Project>
+      <Name>Estimator.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
