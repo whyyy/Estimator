@@ -40,7 +40,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\DataProvider.cs" />
+    <Compile Include="DataProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="DocumentFormat.OpenXml, Version=2.9.1.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
@@ -73,6 +73,10 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Estimator.Model\Estimator.Model.csproj">
+      <Project>{34B5B7DE-A7CD-4827-BC4D-2BF37681C0DD}</Project>
+      <Name>Estimator.Model</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Estimator.Redmine\Estimator.Redmine.csproj">
       <Project>{2BD8127F-F03A-4375-9C9B-ECD515C685BB}</Project>
       <Name>Estimator.Redmine</Name>

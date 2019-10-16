@@ -1,8 +1,9 @@
-﻿using Estimator.Testrail.Model;
-using Estimator.Redmine.Model;
+﻿using Estimator.Testrail;
+using Estimator.Redmine;
 using System.Collections.Generic;
+using Estimator.Model;
 
-namespace Estimator.Data.Model
+namespace Estimator.Data
 {
     public class DataProvider
     {
@@ -14,11 +15,17 @@ namespace Estimator.Data.Model
         }
 
         public List<Ticket> Tickets { get; set; }
+
         public List<Status> Statuses { get; set; }
+
         public RedmineDataProvider RedmineData { get; set; }
+
         public TestrailDataProvider TestrailData { get; set; }
+
         public Status Status { get; set; }
+
         public Ticket Ticket { get; set; }
+
         public TestRun Testrun { get; set; }
 
         public RedmineDataProvider GetRedmineData()
@@ -26,6 +33,7 @@ namespace Estimator.Data.Model
             _redmineData = new RedmineDataProvider();
             return _redmineData;
         }
+
         public List<Ticket> GetTickets(int selectedStatusId)
         {
             Tickets = new List<Ticket>();
