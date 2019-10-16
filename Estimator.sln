@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Estimator.Testrail", "Estim
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Estimator.App", "Estimator.App\Estimator.App.csproj", "{9791E9F3-6E77-40BD-858A-EB9220E8F6D0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Estimator.Model", "Estimator.Model\Estimator.Model.csproj", "{34B5B7DE-A7CD-4827-BC4D-2BF37681C0DD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,10 +31,14 @@ Global
 		{DF94AD0A-73D3-4057-ADEE-95AB92E7C242}.Debug|Any CPU.Build.0 = Release|Any CPU
 		{DF94AD0A-73D3-4057-ADEE-95AB92E7C242}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF94AD0A-73D3-4057-ADEE-95AB92E7C242}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9791E9F3-6E77-40BD-858A-EB9220E8F6D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9791E9F3-6E77-40BD-858A-EB9220E8F6D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9791E9F3-6E77-40BD-858A-EB9220E8F6D0}.Debug|Any CPU.ActiveCfg = Release|Any CPU
+		{9791E9F3-6E77-40BD-858A-EB9220E8F6D0}.Debug|Any CPU.Build.0 = Release|Any CPU
 		{9791E9F3-6E77-40BD-858A-EB9220E8F6D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9791E9F3-6E77-40BD-858A-EB9220E8F6D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34B5B7DE-A7CD-4827-BC4D-2BF37681C0DD}.Debug|Any CPU.ActiveCfg = Release|Any CPU
+		{34B5B7DE-A7CD-4827-BC4D-2BF37681C0DD}.Debug|Any CPU.Build.0 = Release|Any CPU
+		{34B5B7DE-A7CD-4827-BC4D-2BF37681C0DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34B5B7DE-A7CD-4827-BC4D-2BF37681C0DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

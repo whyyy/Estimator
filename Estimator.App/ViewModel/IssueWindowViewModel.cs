@@ -1,6 +1,6 @@
 ﻿using Estimator.App.Helpers;
-using Estimator.Data.Model;
-using Estimator.Redmine.Model;
+using Estimator.Data;
+using Estimator.Model;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using System.Collections.Generic;
@@ -11,29 +11,14 @@ namespace Estimator.App.ViewModel
 {
     class IssueWindowViewModel : INotifyPropertyChanged
     {
-        private void _filterByStatusChosen(object obj)
-        {
-            _tickets = new List<Ticket>();
-            _tickets = _loadedData.GetTickets(SelectedStatus.Id);
-            Tickets = _tickets;
-        }
-        private bool _canFilterByStatusChosen(object obj)
-        {
-            if (SelectedStatus != null)
-                return true;
-            return false;
-        }
-        private void _displaySettingsWindow()
-        {
-            Messenger.Default.Send(new NotificationMessage("SettingsView"));
-        }
-        private bool _canDisplaySettingsWindow(object obj)
-        {
-            return true;
-        }
         private DataProvider _loadedData;
+
         private List<Status> _statuses;
+
         private List<Ticket> _tickets;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public IssueWindowViewModel()
         {
             FilterByStatusChosenCommand = new Commander(_filterByStatusChosen, _canFilterByStatusChosen);
@@ -41,9 +26,13 @@ namespace Estimator.App.ViewModel
             _statuses = _loadedData.RedmineData.Statuses;
             Statuses = _statuses;
         }
+
         public ICommand FilterByStatusChosenCommand { get; set; }
+
         public ICommand DisplaySettingsWindowCommand { get; set; }
+
         public RelayCommand ShowSettingsView { private set; get; }
+
         public Status SelectedStatus
         {
             get
@@ -56,6 +45,7 @@ namespace Estimator.App.ViewModel
                 RaisePropertyChanged("SelectedStatus");
             }
         }
+
         public Ticket SelectedTicket
         {
             get
@@ -68,6 +58,7 @@ namespace Estimator.App.ViewModel
                 RaisePropertyChanged("SelectedTicket");
             }
         }
+
         public List<Ticket> Tickets
         {
             get
@@ -80,6 +71,7 @@ namespace Estimator.App.ViewModel
                 RaisePropertyChanged("Tickets");
             }
         }
+
         public List<Status> Statuses
         {
             get
@@ -92,11 +84,35 @@ namespace Estimator.App.ViewModel
                 RaisePropertyChanged("Statuses");
             }
         }
-        public event PropertyChangedEventHandler PropertyChanged;
+
         public void RaisePropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-        }        
+        }
+
+        private void _filterByStatusChosen(object obj)
+        {
+            _tickets = new List<Ticket>();
+            _tickets = _loadedData.GetTickets(SelectedStatus.Id);
+            Tickets = _tickets;
+        }
+
+        private bool _canFilterByStatusChosen(object obj)
+        {
+            if (SelectedStatus != null)
+                return true;
+            return false;
+        }
+
+        private void _displaySettingsWindow()
+        {
+            Messenger.Default.Send(new NotificationMessage("SettingsView"));
+        }
+
+        private bool _canDisplaySettingsWindow(object obj)
+        {
+            return true;
+        }
     }
 }
