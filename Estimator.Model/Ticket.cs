@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Estimator.Redmine.Model
+namespace Estimator.Model
 {
     public class Ticket 
     {
@@ -22,14 +22,23 @@ namespace Estimator.Redmine.Model
         }
        
         public int Id { get; set; }
+
         public string Subject { get; set; }
+
         public DateTime? StartDate { get; set; }
+
         public DateTime? EndDate { get; set; }
+
         public DateTime? UatStartDate { get; set; }
+
         public DateTime? UatEndDate { get; set; }
+
         public int  StatusId { get; set; }
+
         public string StatusName { get; set; }
+
         public IList<IssueCustomField> CustomFields { get; set; }
+
         public string MilestoneId { get; set; }
     }
 }
