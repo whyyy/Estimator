@@ -8,29 +8,35 @@ namespace Estimator.Testrail
 {
     public class TestrailDataProvider
     {
-        private TestRailClient _testrailConnection { get; set; } = new TestRailClient("https://binashombre.testrail.io/", 
-            "matib95@gmail.com", "h0A4GCUnFS4Fi/XbaS1V");
-
-        private List<TestRun> _testRuns;
+        private List<TestRun> _testruns;
 
         private readonly ulong testrailId = Convert.ToUInt64(ConfigurationManager.AppSettings["testrailProjectId"]);
 
         public List<TestRun> Testruns;
 
-        public TestrailDataProvider(string milestoneId)
+        public TestrailConnectionProvider TestrailConnectionProvider = new TestrailConnectionProvider();
+
+        public TestRailClient TestrailConnection { get; set; } = new TestRailClient(TestrailConnectionProvider.Url,
+            TestrailConnectionProvider.Login, TestrailConnectionProvider.Password);
+
+        public TestrailDataProvider()
         {
             Testruns = GetTestRuns();
         }
 
-        List<TestRun> GetTestRuns()
-        {
-            _testRuns = new List<TestRun>();
-            foreach (var testRun in _testrailConnection.GetRuns(testrailId))
+        public List<TestRun> GetTestRuns()
+        {   
+            _testruns = new List<TestRun>();
+            foreach (var run in TestrailConnection.GetRuns(1))
             {
-                _testRuns.Add(new TestRun(testRun.Name, testRun.ID, testRun.PassedCount, testRun.Description, testRun.MilestoneID, 
-                    testRun.UntestedCount, testRun.FailedCount, testRun.CustomStatus1Count));
+                TestRun testrun = new TestRun(run.Name, run.ID, run.PassedCount, run.Description, run.MilestoneID,
+                    run.UntestedCount, run.FailedCount, run.RetestCount, run.BlockedCount, run.CustomStatus1Count, run.CustomStatus2Count);
+                testrun.TotalNumber = testrun.GetTotalNumber();
+                testrun.CoverageNumber = testrun.GetCoverageNumber();
+                _testruns.Add(testrun);
             }
-            return _testRuns;
+            return _testruns;
         }
+
     }
 }
