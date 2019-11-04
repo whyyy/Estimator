@@ -1,5 +1,4 @@
-﻿using Redmine.Net.Api.Types;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace Estimator.Model
@@ -8,7 +7,7 @@ namespace Estimator.Model
     {
         public Ticket(int id, string subject, DateTime? startDate,
             DateTime? endDate, DateTime? uatStartDate, DateTime? uatEndDate,
-            int status, string statusName, IList<IssueCustomField> customFields)
+            int status, string statusName, List<TicketCustomField> customFields)
         {
             Id = id;
             Subject = subject;
@@ -37,9 +36,9 @@ namespace Estimator.Model
 
         public string StatusName { get; set; }
 
-        public IList<IssueCustomField> CustomFields { get; set; }
+        public List<TicketCustomField> CustomFields { get; set; }
 
-        public string MilestoneId { get; set; }
+        public ulong? MilestoneId { get; set; }
     }
 }
 
