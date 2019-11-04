@@ -3,6 +3,7 @@ using Estimator.Data;
 using Estimator.Model;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Input;
@@ -17,6 +18,10 @@ namespace Estimator.App.ViewModel
 
         private List<Ticket> _tickets;
 
+        private List<TestRun> _testruns;
+    
+        private readonly IDataProvider _dataProvider;
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public IssueWindowViewModel()
@@ -25,11 +30,14 @@ namespace Estimator.App.ViewModel
             _loadedData = new DataProvider();
             _statuses = _loadedData.RedmineData.Statuses;
             Statuses = _statuses;
+            DisplayTestruns = new Commander(_displayTestrun, _canDisplayTestrun);
         }
 
         public ICommand FilterByStatusChosenCommand { get; set; }
 
         public ICommand DisplaySettingsWindowCommand { get; set; }
+
+        public ICommand DisplayTestruns { get; set; }
 
         public RelayCommand ShowSettingsView { private set; get; }
 
@@ -85,6 +93,19 @@ namespace Estimator.App.ViewModel
             }
         }
 
+        public List<TestRun> TestRuns
+        {
+            get
+            {
+                return _testruns;
+            }
+            set
+            {
+                _testruns = value;
+                RaisePropertyChanged("TestRuns");
+            }
+        }
+
         public void RaisePropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)
@@ -101,6 +122,21 @@ namespace Estimator.App.ViewModel
         private bool _canFilterByStatusChosen(object obj)
         {
             if (SelectedStatus != null)
+                return true;
+            return false;
+        }
+
+        private void _displayTestrun(object obj)
+        {
+            _testruns = new List<TestRun>();
+            SelectedTicket.MilestoneId = _loadedData.GetMilestoneId(SelectedTicket);
+            _testruns = _loadedData.GetTestruns(Convert.ToUInt32(SelectedTicket.MilestoneId));
+            TestRuns = _testruns;
+        }
+
+        private bool _canDisplayTestrun(object obj)
+        {
+            if (SelectedTicket != null)
                 return true;
             return false;
         }

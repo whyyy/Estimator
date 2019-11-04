@@ -47,6 +47,7 @@
     <Reference Include="System.Configuration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IRedmineConnectionProvider.cs" />
     <Compile Include="RedmineConnectionProvider.cs" />
     <Compile Include="RedmineDataProvider.cs" />
   </ItemGroup>
