@@ -1,9 +1,12 @@
 ﻿using Estimator.Model;
 using Redmine.Net.Api;
 using Redmine.Net.Api.Types;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Configuration;
+using System.Linq;
 
 namespace Estimator.Redmine
 {
@@ -12,6 +15,8 @@ namespace Estimator.Redmine
         private List<Status> _statuses;
 
         private List<Ticket> _tickets;
+
+        private List<TicketCustomField> _customFields = new List<TicketCustomField>();
 
         private static readonly string _trackerId = ConfigurationManager.AppSettings["tracker"];
 
@@ -47,10 +52,27 @@ namespace Estimator.Redmine
             _tickets = new List<Ticket>();
             foreach (var issue in RedmineConnection.GetObjects<Issue>(_parameters))
             {
-                _tickets.Add(new Ticket(issue.Id, issue.Subject, issue.StartDate, issue.StartDate, issue.StartDate, 
-                    issue.StartDate, issue.Status.Id, issue.Status.Name, issue.CustomFields));
+                _customFields = new List<TicketCustomField>();
+                foreach (var customField in issue.CustomFields)
+                {
+                    foreach (var value in customField.Values)
+                    {
+                        _customFields.Add(new TicketCustomField(customField.Name, value.Info));
+                    }
+                    if(customField.Name.Equals("Testrail id"))
+                    {
+                        foreach (var customFieldValue in customField.Values)
+                        {
+                            string testrailId = customFieldValue.Info;
+                        }
+                    }
+                }
+                _tickets.Add(new Ticket(issue.Id, issue.Subject, issue.StartDate, issue.StartDate, issue.StartDate,
+                    issue.StartDate, issue.Status.Id, issue.Status.Name, _customFields));    
             }
             return _tickets;
         }
+
+
     }
 }
