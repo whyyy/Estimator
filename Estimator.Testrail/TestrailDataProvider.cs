@@ -27,7 +27,7 @@ namespace Estimator.Testrail
         public List<TestRun> GetTestRuns()
         {   
             _testruns = new List<TestRun>();
-            foreach (var run in TestrailConnection.GetRuns(1))
+            foreach (var run in TestrailConnection.GetRuns(testrailId))
             {
                 TestRun testrun = new TestRun(run.Name, run.ID, run.PassedCount, run.Description, run.MilestoneID,
                     run.UntestedCount, run.FailedCount, run.RetestCount, run.BlockedCount, run.CustomStatus1Count, run.CustomStatus2Count);
