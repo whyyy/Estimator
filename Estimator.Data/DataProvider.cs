@@ -3,6 +3,7 @@ using Estimator.Redmine;
 using System.Collections.Generic;
 using Estimator.Model;
 using System;
+using System.Linq;
 
 namespace Estimator.Data
 {
@@ -46,38 +47,30 @@ namespace Estimator.Data
 
         public List<Ticket> GetTickets(int selectedStatusId)
         {
-            Tickets = new List<Ticket>();
-            foreach (Ticket ticket in RedmineData.Tickets)
-            {
-                if (ticket.StatusId.Equals(selectedStatusId))
-                {
-                    Tickets.Add(ticket);
-                }
-            }
+            Tickets = (from Ticket ticket in RedmineData.Tickets
+                       where ticket.StatusId.Equals(selectedStatusId)
+                       select ticket).ToList();
             return Tickets;
         }
 
         public List<TestRun> GetTestruns(ulong? milestoneId)
         {
-            Testruns = new List<TestRun>();
-            foreach(TestRun testrun in TestrailData.Testruns)
-                if (testrun.MilestoneId.Equals(milestoneId))
-                {
-                    Testruns.Add(testrun);
-                }
+            Testruns = (from TestRun testrun in TestrailData.Testruns
+                        where testrun.MilestoneId.Equals(milestoneId)
+                        select testrun).ToList();
             return Testruns;
         }
 
         public ulong? GetMilestoneId(Ticket ticket)
         {
             ulong? milestoneId = null;
-            foreach (var customField in ticket.CustomFields)
+            foreach (var customField in from customField in ticket.CustomFields
+                                        where customField.Name.Equals("Testrail id")
+                                        select customField)
             {
-                if (customField.Name.Equals("Testrail id"))
-                {
-                    milestoneId = Convert.ToUInt32(customField.Details);
-                }
+                milestoneId = Convert.ToUInt32(customField.Details);
             }
+
             return milestoneId;
         }
 

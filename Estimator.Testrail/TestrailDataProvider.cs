@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using TestRail;
+using System.Linq;
 
 namespace Estimator.Testrail
 {
@@ -17,7 +18,8 @@ namespace Estimator.Testrail
         public TestrailConnectionProvider TestrailConnectionProvider = new TestrailConnectionProvider();
 
         public TestRailClient TestrailConnection { get; set; } = new TestRailClient(TestrailConnectionProvider.Url,
-            TestrailConnectionProvider.Login, TestrailConnectionProvider.Password);
+                                                                                    TestrailConnectionProvider.Login, 
+                                                                                    TestrailConnectionProvider.Password);
 
         public TestrailDataProvider()
         {
@@ -27,14 +29,17 @@ namespace Estimator.Testrail
         public List<TestRun> GetTestRuns()
         {   
             _testruns = new List<TestRun>();
-            foreach (var run in TestrailConnection.GetRuns(testrailId))
+            foreach (var testrun in from run in TestrailConnection.GetRuns(testrailId)
+                     let testrun = new TestRun(run.Name, run.ID, run.PassedCount, run.Description, run.MilestoneID,
+                                               run.UntestedCount, run.FailedCount, run.RetestCount, run.BlockedCount, 
+                                               run.CustomStatus1Count, run.CustomStatus2Count)
+                     select testrun)
             {
-                TestRun testrun = new TestRun(run.Name, run.ID, run.PassedCount, run.Description, run.MilestoneID,
-                    run.UntestedCount, run.FailedCount, run.RetestCount, run.BlockedCount, run.CustomStatus1Count, run.CustomStatus2Count);
                 testrun.TotalNumber = testrun.GetTotalNumber();
                 testrun.CoverageNumber = testrun.GetCoverageNumber();
                 _testruns.Add(testrun);
             }
+
             return _testruns;
         }
 

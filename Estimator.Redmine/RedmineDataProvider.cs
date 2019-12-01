@@ -55,20 +55,19 @@ namespace Estimator.Redmine
                 _customFields = new List<TicketCustomField>();
                 foreach (var customField in issue.CustomFields)
                 {
-                    foreach (var value in customField.Values)
+                    _customFields.AddRange(from value in customField.Values
+                                           select new TicketCustomField(customField.Name, value.Info));
+                    if (customField.Name.Equals("Testrail id"))
                     {
-                        _customFields.Add(new TicketCustomField(customField.Name, value.Info));
-                    }
-                    if(customField.Name.Equals("Testrail id"))
-                    {
-                        foreach (var customFieldValue in customField.Values)
+                        foreach (var customFieldValue in from customFieldValue in customField.Values
+                                let testrailId = customFieldValue.Info
+                                select new { })
                         {
-                            string testrailId = customFieldValue.Info;
                         }
                     }
                 }
                 _tickets.Add(new Ticket(issue.Id, issue.Subject, issue.StartDate, issue.StartDate, issue.StartDate,
-                    issue.StartDate, issue.Status.Id, issue.Status.Name, _customFields));    
+                    issue.StartDate, issue.Status.Id, issue.Status.Name, _customFields));
             }
             return _tickets;
         }
