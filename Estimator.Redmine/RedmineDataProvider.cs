@@ -50,28 +50,27 @@ namespace Estimator.Redmine
         List<Ticket> GetTickets()
         {
             _tickets = new List<Ticket>();
-            foreach (var issue in RedmineConnection.GetObjects<Issue>(_parameters))
+            _customFields = new List<TicketCustomField>();
+
+            var _issuesQuery =
+                from issue in RedmineConnection.GetObjects<Issue>(_parameters)
+                select new Ticket(issue.Id, issue.Subject, issue.StartDate, issue.StartDate, issue.StartDate,
+                    issue.StartDate, issue.Status.Id, issue.Status.Name);
+
+            foreach (var ticket in _issuesQuery)
             {
-                _customFields = new List<TicketCustomField>();
-                foreach (var customField in issue.CustomFields)
-                {
-                    _customFields.AddRange(from value in customField.Values
-                                           select new TicketCustomField(customField.Name, value.Info));
-                    if (customField.Name.Equals("Testrail id"))
-                    {
-                        foreach (var customFieldValue in from customFieldValue in customField.Values
-                                let testrailId = customFieldValue.Info
-                                select new { })
-                        {
-                        }
-                    }
-                }
-                _tickets.Add(new Ticket(issue.Id, issue.Subject, issue.StartDate, issue.StartDate, issue.StartDate,
-                    issue.StartDate, issue.Status.Id, issue.Status.Name, _customFields));
+                _parameters.Clear();
+                _parameters.Add("issue_id", ticket.Id.ToString());
+                var _customFieldsQuery =
+                from issue in RedmineConnection.GetObjects<Issue>(_parameters)
+                from customField in issue.CustomFields
+                from customFieldValues in customField.Values
+                select new TicketCustomField(customField.Name, customFieldValues.Info);
+                ticket.CustomFields = _customFieldsQuery.ToList();
+                _tickets.Add(ticket);
             }
+            
             return _tickets;
         }
-
-
     }
 }

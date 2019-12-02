@@ -5,9 +5,10 @@ namespace Estimator.Model
 {
     public class Ticket 
     {
+
         public Ticket(int id, string subject, DateTime? startDate,
             DateTime? endDate, DateTime? uatStartDate, DateTime? uatEndDate,
-            int status, string statusName, List<TicketCustomField> customFields)
+            int status, string statusName)
         {
             Id = id;
             Subject = subject;
@@ -17,9 +18,8 @@ namespace Estimator.Model
             UatEndDate = uatEndDate;
             StatusId = status;
             StatusName = statusName;
-            CustomFields = customFields;
         }
-       
+
         public int Id { get; set; }
 
         public string Subject { get; set; }
@@ -39,6 +39,10 @@ namespace Estimator.Model
         public List<TicketCustomField> CustomFields { get; set; }
 
         public ulong? MilestoneId { get; set; }
+        
+        public string CustomFieldName { get; set; }
+
+        public string  CustomFieldDetails { get; set; }
     }
 }
 
