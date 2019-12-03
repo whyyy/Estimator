@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace Estimator.Testrail
 {
-    public class TestrailConnectionProvider
+    public class TestrailConnectionProvider : ITestrailConnectionProvider
     {
-        private TestrailConnectionProvider _testrailConnectionDetails;
-
         public TestrailConnectionProvider()
         {
             GetTestrailConnectionDetails();
@@ -32,7 +30,7 @@ namespace Estimator.Testrail
             Url = ConfigurationManager.AppSettings["testrailUrl"];
             Login = ConfigurationManager.AppSettings["testrailLogin"];
             Password = ConfigurationManager.AppSettings["testrailPassword"];
-            return _testrailConnectionDetails = new TestrailConnectionProvider(Url, Login, Password);
+            return new TestrailConnectionProvider(Url, Login, Password);
         }
     }
 }

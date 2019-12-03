@@ -1,8 +1,6 @@
 ﻿using Estimator.Model;
 using Redmine.Net.Api;
 using Redmine.Net.Api.Types;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Configuration;
@@ -10,7 +8,8 @@ using System.Linq;
 
 namespace Estimator.Redmine
 {
-    public class RedmineDataProvider
+    public class RedmineDataProvider : IRedmineDataProvider
+
     {
         private List<Status> _statuses;
 
@@ -37,7 +36,7 @@ namespace Estimator.Redmine
             Statuses = GetStatuses();
         }
 
-        List<Status> GetStatuses()
+        public List<Status> GetStatuses()
         {
             _statuses = new List<Status>();
             var _statusesQuery = 
@@ -51,7 +50,7 @@ namespace Estimator.Redmine
             return _statuses;
         }
 
-        List<Ticket> GetTickets()
+        public List<Ticket> GetTickets()
         {
             _tickets = new List<Ticket>();
             _customFields = new List<TicketCustomField>();

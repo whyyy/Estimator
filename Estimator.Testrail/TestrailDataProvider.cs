@@ -8,7 +8,7 @@ using TestRail.Types;
 
 namespace Estimator.Testrail
 {
-    public class TestrailDataProvider
+    public class TestrailDataProvider: ITestrailDataProvider
     {
         private List<TestRun> _testruns;
 

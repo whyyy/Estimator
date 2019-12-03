@@ -2,10 +2,8 @@
 
 namespace Estimator.Redmine
 { 
-   public class RedmineConnectionProvider
+   public class RedmineConnectionProvider : IRedmineConnectionProvider
     {
-        private RedmineConnectionProvider _redmineConnectionDetails;
-
         public RedmineConnectionProvider()
         {
             GetRedmineConnectionDetails();
@@ -24,7 +22,7 @@ namespace Estimator.Redmine
         {           
             Host = ConfigurationManager.AppSettings["Host"];
             Api = ConfigurationManager.AppSettings["Api"];
-            return _redmineConnectionDetails = new RedmineConnectionProvider(Host, Api);
+            return new RedmineConnectionProvider(Host, Api);
         }
     }
 }

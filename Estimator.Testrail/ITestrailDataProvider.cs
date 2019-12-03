@@ -10,6 +10,5 @@ namespace Estimator.Testrail
     public interface ITestrailDataProvider
     {
         List<TestRun> GetTestRuns();
-        string GetTestrailConnectionData(string key);
     }
 }
