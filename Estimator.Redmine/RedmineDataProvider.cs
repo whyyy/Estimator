@@ -39,14 +39,7 @@ namespace Estimator.Redmine
         public List<Status> GetStatuses()
         {
             _statuses = new List<Status>();
-            var _statusesQuery = 
-                from status in RedmineConnection.GetObjects<IssueStatus>(_parameters)
-                select new Status(status.Id, status.Name);
-
-            foreach (var status in _statusesQuery)
-            {
-                _statuses.Add(status);
-            }
+            _statuses = RedmineConnection.GetObjects<IssueStatus>(_parameters).Select(status => new Status(status.Id, status.Name)).ToList();
             return _statuses;
         }
 
