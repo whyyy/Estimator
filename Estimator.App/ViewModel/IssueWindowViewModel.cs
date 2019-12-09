@@ -12,7 +12,6 @@ namespace Estimator.App.ViewModel
 {
     class IssueWindowViewModel : INotifyPropertyChanged
     {
-        private DataProvider _loadedData;
 
         private List<Status> _statuses;
 
@@ -27,8 +26,8 @@ namespace Estimator.App.ViewModel
         public IssueWindowViewModel()
         {
             FilterByStatusChosenCommand = new Commander(_filterByStatusChosen, _canFilterByStatusChosen);
-            _loadedData = new DataProvider();
-            _statuses = _loadedData.RedmineData.Statuses;
+            _dataProvider = new DataProvider();
+            _statuses = _dataProvider.GetRedmineData().Statuses;
             Statuses = _statuses;
             DisplayTestruns = new Commander(_displayTestrun, _canDisplayTestrun);
         }
@@ -45,11 +44,11 @@ namespace Estimator.App.ViewModel
         {
             get
             {
-                return _loadedData.Status;
+                return _dataProvider.Status;
             }
             set
             {
-                _loadedData.Status = value;
+                _dataProvider.Status = value;
                 RaisePropertyChanged("SelectedStatus");
             }
         }
@@ -58,11 +57,11 @@ namespace Estimator.App.ViewModel
         {
             get
             {
-                return _loadedData.Ticket;
+                return _dataProvider.Ticket;
             }
             set
             {
-                _loadedData.Ticket = value;
+                _dataProvider.Ticket = value;
                 RaisePropertyChanged("SelectedTicket");
             }
         }
@@ -115,7 +114,7 @@ namespace Estimator.App.ViewModel
         private void _filterByStatusChosen(object obj)
         {
             _tickets = new List<Ticket>();
-            _tickets = _loadedData.GetTickets(SelectedStatus.Id);
+            _tickets = _dataProvider.GetTickets(SelectedStatus.Id);
             Tickets = _tickets;
         }
 
@@ -129,8 +128,8 @@ namespace Estimator.App.ViewModel
         private void _displayTestrun(object obj)
         {
             _testruns = new List<TestRun>();
-            SelectedTicket.MilestoneId = _loadedData.GetMilestoneId(SelectedTicket);
-            _testruns = _loadedData.GetTestruns(Convert.ToUInt32(SelectedTicket.MilestoneId));
+            SelectedTicket.MilestoneId = _dataProvider.GetMilestoneId(SelectedTicket);
+            _testruns = _dataProvider.GetTestruns(Convert.ToUInt32(SelectedTicket.MilestoneId));
             TestRuns = _testruns;
         }
 

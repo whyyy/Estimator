@@ -31,8 +31,6 @@ namespace Estimator.Data
 
         public Ticket Ticket { get; set; }
 
-        public TestRun Testrun { get; set; }
-
         public RedmineDataProvider GetRedmineData()
         {
             _redmineData = new RedmineDataProvider();

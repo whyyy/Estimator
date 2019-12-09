@@ -7,10 +7,17 @@ namespace Estimator.Data
 {
     public interface IDataProvider
     {
+        Status Status { get; set; }
+        Ticket Ticket { get; set; }
+
         List<Ticket> GetTickets(int selectedStatusId);
 
         RedmineDataProvider GetRedmineData();
 
         TestrailDataProvider GetTestrailData();
+
+        List<TestRun> GetTestruns(ulong? milestoneId);
+
+        ulong? GetMilestoneId(Ticket selectedTicket);
     }
 }
