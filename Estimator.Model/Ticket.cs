@@ -8,7 +8,7 @@ namespace Estimator.Model
 
         public Ticket(int id, string subject, DateTime? startDate,
             DateTime? endDate, DateTime? uatStartDate, DateTime? uatEndDate,
-            int status, string statusName)
+            int status, string statusName, List<TicketCustomField> customFields)
         {
             Id = id;
             Subject = subject;
@@ -18,7 +18,9 @@ namespace Estimator.Model
             UatEndDate = uatEndDate;
             StatusId = status;
             StatusName = statusName;
+            CustomFields = customFields;
         }
+
 
         public int Id { get; set; }
 

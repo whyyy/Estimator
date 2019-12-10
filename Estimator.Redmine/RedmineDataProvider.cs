@@ -15,7 +15,7 @@ namespace Estimator.Redmine
 
         private List<Ticket> _tickets;
 
-        private List<TicketCustomField> _customFields = new List<TicketCustomField>();
+        private IEnumerable<TicketCustomField> _customFields;
 
         private static readonly string _trackerId = ConfigurationManager.AppSettings["tracker"];
 
@@ -46,26 +46,21 @@ namespace Estimator.Redmine
         public List<Ticket> GetTickets()
         {
             _tickets = new List<Ticket>();
-            _customFields = new List<TicketCustomField>();
-
-            var _issuesQuery =
-                from issue in RedmineConnection.GetObjects<Issue>(_parameters)
-                select new Ticket(issue.Id, issue.Subject, issue.StartDate, issue.StartDate, issue.StartDate,
-                    issue.StartDate, issue.Status.Id, issue.Status.Name);
-
-            foreach (var ticket in _issuesQuery)
-            {
-                _parameters.Clear();
-                _parameters.Add("issue_id", ticket.Id.ToString());
-                var _customFieldsQuery =
-                from issue in RedmineConnection.GetObjects<Issue>(_parameters)
-                from customField in issue.CustomFields
-                from customFieldValues in customField.Values
-                select new TicketCustomField(customField.Name, customFieldValues.Info);
-                ticket.CustomFields = _customFieldsQuery.ToList();
-                _tickets.Add(ticket);
-            }
             
+            var _redmineConnection = RedmineConnection.GetObjects<Issue>(_parameters);
+
+            var _ticketsQuery = _redmineConnection
+                .SelectMany(issue => (issue, issue.CustomFields
+                .SelectMany(issueCustomFields => issue.CustomFields
+                .SelectMany(customField => customField
+                .SelectMany(customFieldValues => customField.Values
+                .SelectMany(customFieldInfo => customFieldInfo.Info
+                .SelectMany(ticketCustomField => new TicketCustomField(customField.Name, customFieldInfo.Info)
+                .Select(ticket => new Ticket(issue.Id, issue.Subject, issue.StartDate, issue.StartDate, issue.StartDate,
+                    issue.StartDate, issue.Status.Id, issue.Status.Name, ticketCustomField)))))))));
+
+            _tickets = new List<Ticket>(_ticketsQuery);
+
             return _tickets;
         }
     }
