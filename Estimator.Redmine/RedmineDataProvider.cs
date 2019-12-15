@@ -15,7 +15,7 @@ namespace Estimator.Redmine
 
         private List<Ticket> _tickets;
 
-        private IEnumerable<TicketCustomField> _customFields;
+        private List<TicketCustomField> _customFields;
 
         private static readonly string _trackerId = ConfigurationManager.AppSettings["tracker"];
 
@@ -46,18 +46,15 @@ namespace Estimator.Redmine
         public List<Ticket> GetTickets()
         {
             _tickets = new List<Ticket>();
-            
             var _redmineConnection = RedmineConnection.GetObjects<Issue>(_parameters);
 
             var _ticketsQuery = _redmineConnection
                 .SelectMany(issue => (issue, issue.CustomFields
-                .SelectMany(issueCustomFields => issue.CustomFields
-                .SelectMany(customField => customField
+                .SelectMany(customField => customField.Name
                 .SelectMany(customFieldValues => customField.Values
-                .SelectMany(customFieldInfo => customFieldInfo.Info
-                .SelectMany(ticketCustomField => new TicketCustomField(customField.Name, customFieldInfo.Info)
+                .Select(ticketCustomField => new TicketCustomField(customField.Name, ticketCustomField.Info)).ToList()
                 .Select(ticket => new Ticket(issue.Id, issue.Subject, issue.StartDate, issue.StartDate, issue.StartDate,
-                    issue.StartDate, issue.Status.Id, issue.Status.Name, ticketCustomField)))))))));
+                    issue.StartDate, issue.Status.Id, issue.Status.Name, ticketCustomField))))));
 
             _tickets = new List<Ticket>(_ticketsQuery);
 
