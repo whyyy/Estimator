@@ -30,21 +30,11 @@ namespace Estimator.Testrail
         public List<TestRun> GetTestRuns()
         {   
             _testruns = new List<TestRun>();
-            IEnumerable<Run> _runQuery = 
-            from run in TestrailConnection.GetRuns(testrailId)
-            select run;
 
-            IEnumerable<TestRun> _testRunQuery =
-            from run in _runQuery
-            select new TestRun(run.Name, run.ID, run.PassedCount, run.Description, run.MilestoneID,
+            _testruns = TestrailConnection.GetRuns(testrailId)
+                .Select(run => new TestRun(run.Name, run.ID, run.PassedCount, run.Description, run.MilestoneID,
                                                run.UntestedCount, run.FailedCount, run.RetestCount, run.BlockedCount,
-                                               run.CustomStatus1Count, run.CustomStatus2Count);
-
-            foreach(var run in _testRunQuery)
-            {
-                _testruns.Add(run);
-            }
-
+                                               run.CustomStatus1Count, run.CustomStatus2Count)).ToList();
             return _testruns;
         }
 

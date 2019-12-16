@@ -48,15 +48,16 @@ namespace Estimator.Redmine
             _tickets = new List<Ticket>();
             var _redmineConnection = RedmineConnection.GetObjects<Issue>(_parameters);
 
-            var _ticketsQuery = _redmineConnection
-                .SelectMany(issue => (issue, issue.CustomFields
-                .SelectMany(customField => customField.Name
-                .SelectMany(customFieldValues => customField.Values
-                .Select(ticketCustomField => new TicketCustomField(customField.Name, ticketCustomField.Info)).ToList()
-                .Select(ticket => new Ticket(issue.Id, issue.Subject, issue.StartDate, issue.StartDate, issue.StartDate,
-                    issue.StartDate, issue.Status.Id, issue.Status.Name, ticketCustomField))))));
+            _customFields = new List<TicketCustomField>();
 
-            _tickets = new List<Ticket>(_ticketsQuery);
+            var _ticketsQuery = _redmineConnection
+               .SelectMany(issue => (new Ticket(issue.Id, issue.Subject, issue.StartDate, issue.StartDate, issue.StartDate,
+                   issue.StartDate, issue.Status.Id, issue.Status.Name, issue.CustomFields
+                    .SelectMany(customField => customField.Name
+                    .SelectMany(customFieldValues => customField.Values
+                    .SelectMany(ticketCustomFieldInfo => new TicketCustomField(customField.Name, ticketCustomFieldInfo.Info)).ToList<TicketCustomField>())))));
+  
+            _tickets = _ticketsQuery;
 
             return _tickets;
         }

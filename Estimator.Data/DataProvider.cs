@@ -45,29 +45,32 @@ namespace Estimator.Data
 
         public List<Ticket> GetTickets(int selectedStatusId)
         {
-            Tickets = (from Ticket ticket in RedmineData.Tickets
-                       where ticket.StatusId.Equals(selectedStatusId)
-                       select ticket).ToList();
+            Tickets = RedmineData.Tickets
+                .Where(ticket => ticket.StatusId.Equals(selectedStatusId))
+                .Select(ticket => ticket)
+                .ToList();
+
             return Tickets;
         }
 
         public List<TestRun> GetTestruns(ulong? milestoneId)
         {
-            Testruns = (from TestRun testrun in TestrailData.Testruns
-                        where testrun.MilestoneId.Equals(milestoneId)
-                        select testrun).ToList();
+            Testruns = TestrailData.Testruns
+                .Where(testrun => testrun.MilestoneId.Equals(milestoneId))
+                .Select(testrun => testrun)
+                .ToList();
+                
             return Testruns;
         }
 
         public ulong? GetMilestoneId(Ticket ticket)
         {
             ulong? milestoneId = null;
-            foreach (var customField in from customField in ticket.CustomFields
-                                        where customField.Name.Equals("Testrail id")
-                                        select customField)
-            {
-                milestoneId = Convert.ToUInt32(customField.Details);
-            }
+
+            var customFieldQuery = ticket.CustomFields
+                .Where(customFieldName => customFieldName.Name.Equals("Testrail id"))
+                .SelectMany(customField => customField.Details
+                .Select(customFieldDetails => Convert.ToUInt32(customField.Details)));
 
             return milestoneId;
         }
