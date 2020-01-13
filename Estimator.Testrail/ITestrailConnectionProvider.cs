@@ -8,6 +8,6 @@ namespace Estimator.Testrail
 {
     public interface ITestrailConnectionProvider
     {
-        TestrailConnectionProvider GetTestrailConnectionDetails();
+        TestrailConnectionDetails GetTestrailConnectionDetails();
     }
 }

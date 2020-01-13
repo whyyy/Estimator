@@ -9,15 +9,12 @@ namespace Estimator.Testrail
 {
     public class TestrailConnectionProvider : ITestrailConnectionProvider
     {
+
         public TestrailConnectionProvider()
         {
             GetTestrailConnectionDetails();
         }
 
-        public TestrailConnectionProvider(string url, string login, string password)
-        {
-           
-        }
 
         public static string Url { get; set; }
 
@@ -25,12 +22,12 @@ namespace Estimator.Testrail
 
         public static string Password { get; set; }
 
-        public TestrailConnectionProvider GetTestrailConnectionDetails()
+        public TestrailConnectionDetails GetTestrailConnectionDetails()
         {
             Url = ConfigurationManager.AppSettings["testrailUrl"];
             Login = ConfigurationManager.AppSettings["testrailLogin"];
             Password = ConfigurationManager.AppSettings["testrailPassword"];
-            return new TestrailConnectionProvider(Url, Login, Password);
+            return new TestrailConnectionDetails(Url, Login, Password);
         }
     }
 }
