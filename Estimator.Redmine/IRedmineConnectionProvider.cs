@@ -8,6 +8,6 @@ namespace Estimator.Redmine
 {
     public interface IRedmineConnectionProvider
     {
-        RedmineConnectionProvider GetRedmineConnectionDetails();
+        RedmineConnectionDetails GetRedmineConnectionDetails();
     }
 }
