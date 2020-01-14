@@ -15,8 +15,6 @@ namespace Estimator.Redmine
 
         private List<Ticket> _tickets;
 
-        private List<TicketCustomField> _customFields;
-
         private static readonly string _trackerId = ConfigurationManager.AppSettings["tracker"];
 
         private NameValueCollection _parameters = new NameValueCollection();
@@ -46,17 +44,21 @@ namespace Estimator.Redmine
         public List<Ticket> GetTickets()
         {
             _tickets = new List<Ticket>();
+
             var _redmineConnection = RedmineConnection.GetObjects<Issue>(_parameters);
 
-            _customFields = new List<TicketCustomField>();
+            var _ticketsQuery =
+                _redmineConnection
+                .Select(issue => new Ticket(issue.Id, issue.Subject, issue.StartDate, issue.StartDate, issue.StartDate,
+                   issue.StartDate, issue.Status.Id, issue.Status.Name,
+                   issue.CustomFields
+                   .SelectMany(customFieldName => customFieldName.Name
+                   .SelectMany(customFieldValues => customFieldName.Values
+                   .SelectMany(customFieldInfo => customFieldInfo.Info                 
+                   .Select(customFields => new TicketCustomField(customFieldName.Name, customFieldInfo.Info, issue.Id)))))
+                   .ToList<TicketCustomField>())).ToList<Ticket>();
+                    //TODO: Same custom fields are populated many times, reduce populating
 
-            var _ticketsQuery = _redmineConnection
-               .SelectMany(issue => (new Ticket(issue.Id, issue.Subject, issue.StartDate, issue.StartDate, issue.StartDate,
-                   issue.StartDate, issue.Status.Id, issue.Status.Name, issue.CustomFields
-                    .SelectMany(customField => customField.Name
-                    .SelectMany(customFieldValues => customField.Values
-                    .SelectMany(ticketCustomFieldInfo => new TicketCustomField(customField.Name, ticketCustomFieldInfo.Info)).ToList<TicketCustomField>())))));
-  
             _tickets = _ticketsQuery;
 
             return _tickets;

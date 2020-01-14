@@ -8,14 +8,19 @@ namespace Estimator.Model
 {
     public class TicketCustomField
     {
-        public TicketCustomField(string name, string details)
+        public TicketCustomField(string name, string details, int issueId)
         {
+
             Name = name;
             Details = details;
+            IssueId = issueId;
         }
 
         public string Name { get; set; }
 
         public string Details { get; set; }
+
+        public int IssueId { get; set; }
+
     }
 }
