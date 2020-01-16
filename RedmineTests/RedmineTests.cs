@@ -26,6 +26,7 @@ namespace RedmineTests
             string Api = ConfigurationManager.AppSettings["Api"];
 
             Assert.AreEqual(Host, RedmineConnectionProvider.Host);
+
             Assert.AreEqual(Api, RedmineConnectionProvider.Api);
         }
 
@@ -37,6 +38,7 @@ namespace RedmineTests
             RedmineManager RedmineConnection = new RedmineManager(RedmineConnectionProvider.Host, RedmineConnectionProvider.Api);
 
             Assert.NotNull(RedmineConnection);
+
             Assert.NotNull(RedmineConnection.Host);
         }
 
@@ -44,9 +46,13 @@ namespace RedmineTests
         public void TestParametersLoading()
         {
             string _trackerId = ConfigurationManager.AppSettings["tracker"];
+
             NameValueCollection Parameters = new NameValueCollection();
+
             Assert.IsEmpty(Parameters);
+
             Parameters.Add("tracker_id", _trackerId);
+
             Assert.IsNotEmpty(Parameters);
         }
 
@@ -54,6 +60,7 @@ namespace RedmineTests
         public void TestRedmineProviderCreating()
         {
             RedmineDataProvider RedmineDataProvider = new RedmineDataProvider();
+
             Assert.NotNull(RedmineDataProvider);
         }
 
@@ -61,6 +68,7 @@ namespace RedmineTests
         public void TestStatusesCreating()
         {
             RedmineDataProvider RedmineDataProvider = new RedmineDataProvider();
+
             Assert.IsNotEmpty(RedmineDataProvider.Statuses);
         }
 
@@ -68,11 +76,9 @@ namespace RedmineTests
         public void TestTicketsCreating()
         {
             RedmineDataProvider RedmineDataProvider = new RedmineDataProvider();
+
             Assert.IsNotEmpty(RedmineDataProvider.Tickets);
         }
-
-
-
 
     }
 }
