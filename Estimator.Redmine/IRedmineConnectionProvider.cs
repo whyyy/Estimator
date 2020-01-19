@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Redmine.Net.Api;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace Estimator.Redmine
 {
     public interface IRedmineConnectionProvider
     {
-        RedmineConnectionDetails GetRedmineConnectionDetails();
+        RedmineManager GetRedmineConnection();
     }
 }
