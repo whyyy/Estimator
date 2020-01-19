@@ -15,9 +15,8 @@ namespace RedmineTests
     [TestFixture]
     public class RedmineTests
     {
-
         [Test]
-        public void TestRedmineConnectionDetailsLoading()
+        public void RedmineConnectionProvider_DataLoadingFromConfigFile_PropertiesSet()
         {
             RedmineConnectionProvider RedmineConnectionProvider = new RedmineConnectionProvider();
 
@@ -31,7 +30,7 @@ namespace RedmineTests
         }
 
         [Test]
-        public void TestRedmineConnectionEstablishing()
+        public void RedmineConnection_ValidHostAndApi_RedmineConnectionEstablished()
         {
             RedmineConnectionProvider RedmineConnectionProvider = new RedmineConnectionProvider();
 
@@ -43,7 +42,7 @@ namespace RedmineTests
         }
 
         [Test]
-        public void TestParametersLoading()
+        public void NameValueCollection_TrackerIdFromConfigFile_CollectionWithItemValuesSet()
         {
             string _trackerId = ConfigurationManager.AppSettings["tracker"];
 
@@ -57,7 +56,7 @@ namespace RedmineTests
         }
 
         [Test]
-        public void TestRedmineProviderCreating()
+        public void RedmineDataProvider_InstanceCreation_RedmineDataProviderInstance()
         {
             RedmineDataProvider RedmineDataProvider = new RedmineDataProvider();
 
@@ -65,7 +64,7 @@ namespace RedmineTests
         }
 
         [Test]
-        public void TestStatusesCreating()
+        public void RedmineDataProvider_StatusesInstancesCreation_RedmineDataProviderStatuses()
         {
             RedmineDataProvider RedmineDataProvider = new RedmineDataProvider();
 
@@ -73,12 +72,11 @@ namespace RedmineTests
         }
 
         [Test]
-        public void TestTicketsCreating()
+        public void RedmineDataProvider_TicketsInstancesCreation_RedmineDataProviderTickets()
         {
             RedmineDataProvider RedmineDataProvider = new RedmineDataProvider();
 
             Assert.IsNotEmpty(RedmineDataProvider.Tickets);
         }
-
     }
 }
