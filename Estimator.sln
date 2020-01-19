@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Estimator.Model", "Estimato
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Estimator.Redmine.Tests", "RedmineTests\Estimator.Redmine.Tests.csproj", "{077C9E92-AA44-485B-8686-6872AEAC7A5D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Estimator.Model.Tests", "Estimator.Model.Tests\Estimator.Model.Tests.csproj", "{82E57BE4-C550-45DC-A4A1-ECDEA56B97B0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{077C9E92-AA44-485B-8686-6872AEAC7A5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{077C9E92-AA44-485B-8686-6872AEAC7A5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{077C9E92-AA44-485B-8686-6872AEAC7A5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82E57BE4-C550-45DC-A4A1-ECDEA56B97B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82E57BE4-C550-45DC-A4A1-ECDEA56B97B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82E57BE4-C550-45DC-A4A1-ECDEA56B97B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82E57BE4-C550-45DC-A4A1-ECDEA56B97B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
