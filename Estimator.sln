@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Estimator.App", "Estimator.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Estimator.Model", "Estimator.Model\Estimator.Model.csproj", "{34B5B7DE-A7CD-4827-BC4D-2BF37681C0DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedmineTests", "RedmineTests\RedmineTests.csproj", "{077C9E92-AA44-485B-8686-6872AEAC7A5D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Estimator.Redmine.Tests", "RedmineTests\Estimator.Redmine.Tests.csproj", "{077C9E92-AA44-485B-8686-6872AEAC7A5D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
