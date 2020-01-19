@@ -16,29 +16,11 @@ namespace RedmineTests
     public class RedmineTests
     {
         [Test]
-        public void RedmineConnectionProvider_DataLoadingFromConfigFile_PropertiesSet()
+        public void GetRedmineConnection__CreateRedmineConnectionProviderInstance_RedmineConnectionEstablished()
         {
             RedmineConnectionProvider RedmineConnectionProvider = new RedmineConnectionProvider();
 
-            string Host = ConfigurationManager.AppSettings["Host"];
-
-            string Api = ConfigurationManager.AppSettings["Api"];
-
-            Assert.AreEqual(Host, RedmineConnectionProvider.Host);
-
-            Assert.AreEqual(Api, RedmineConnectionProvider.Api);
-        }
-
-        [Test]
-        public void RedmineConnection_ValidHostAndApi_RedmineConnectionEstablished()
-        {
-            RedmineConnectionProvider RedmineConnectionProvider = new RedmineConnectionProvider();
-
-            RedmineManager RedmineConnection = new RedmineManager(RedmineConnectionProvider.Host, RedmineConnectionProvider.Api);
-
-            Assert.NotNull(RedmineConnection);
-
-            Assert.NotNull(RedmineConnection.Host);
+            Assert.NotNull(RedmineConnectionProvider.RedmineConnection);
         }
 
         [Test]
