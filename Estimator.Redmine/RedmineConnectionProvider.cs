@@ -1,24 +1,33 @@
-﻿using System.Configuration;
+﻿using Redmine.Net.Api;
+using System.Configuration;
 
 namespace Estimator.Redmine
-{ 
-   public class RedmineConnectionProvider : IRedmineConnectionProvider
+{
+    public class RedmineConnectionProvider : IRedmineConnectionProvider
     {
-
         public RedmineConnectionProvider()
         {
-            GetRedmineConnectionDetails();
+            RedmineConnection = GetRedmineConnection();
         }
 
-        public static string Host { get; set; }
+        private RedmineConnectionDetails _redmineConnectionDetails;
 
-        public static string Api { get; set; }
+        public RedmineManager RedmineConnection { get; set; }
 
-        public RedmineConnectionDetails GetRedmineConnectionDetails()
-        {           
-            Host = ConfigurationManager.AppSettings["Host"];
-            Api = ConfigurationManager.AppSettings["Api"];
-            return new RedmineConnectionDetails(Host, Api);
+        private RedmineConnectionDetails _getRedmineConnectionDetails()
+        {
+            string _host = ConfigurationManager.AppSettings["Host"];
+
+            string _api = ConfigurationManager.AppSettings["Api"];
+
+            return new RedmineConnectionDetails(_host, _api);
+        }
+
+        public RedmineManager GetRedmineConnection()
+        {
+            _redmineConnectionDetails = _getRedmineConnectionDetails();
+
+            return new RedmineManager(RedmineConnectionDetails.Host, RedmineConnectionDetails.Api);
         }
     }
 }
