@@ -7,12 +7,8 @@ using System.Linq;
 
 namespace Estimator.Data
 {
-    public class DataProvider: IDataProvider
+    public class DataProvider : IDataProvider
     {
-        private RedmineDataProvider _redmineData;
-
-        private TestrailDataProvider _testrailData;
-
         public DataProvider()
         {
             RedmineData = GetRedmineData();
@@ -33,14 +29,14 @@ namespace Estimator.Data
 
         public RedmineDataProvider GetRedmineData()
         {
-            _redmineData = new RedmineDataProvider();
-            return _redmineData;
+            RedmineDataProvider redmineData = new RedmineDataProvider();
+            return redmineData;
         }
 
         public TestrailDataProvider GetTestrailData()
         {
-            _testrailData = new TestrailDataProvider();
-            return _testrailData;
+            TestrailDataProvider testrailData = new TestrailDataProvider();
+            return testrailData;
         }
 
         public List<Ticket> GetTickets(int selectedStatusId)
@@ -59,7 +55,7 @@ namespace Estimator.Data
                 .Where(testrun => testrun.MilestoneId.Equals(milestoneId))
                 .Select(testrun => testrun)
                 .ToList();
-                
+
             return Testruns;
         }
 
@@ -74,6 +70,5 @@ namespace Estimator.Data
 
             return milestoneId;
         }
-
     }
 }
