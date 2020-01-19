@@ -1,14 +1,7 @@
-﻿using Estimator.Model;
-using Estimator.Redmine;
+﻿using Estimator.Redmine;
 using NUnit.Framework;
-using Redmine.Net.Api;
-using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RedmineTests
 {
